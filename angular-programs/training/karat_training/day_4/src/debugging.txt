@@ -1,0 +1,49 @@
+import { Component } from '@angular/core';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+ 
+@Component({
+  selector: 'app-rx-pagination',
+  template: `
+    <ul>
+      <li *ngFor="let item of paginatedItems$ | async">
+        {{ item }}
+      </li>
+    </ul>
+ 
+    <button (click)="prevPage()">Prev</button>
+    <button (click)="nextPage()">Next</button>
+  `
+})
+export class RxPaginationComponent {
+ 
+  items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
+  pageSize = 5;
+ 
+  private pageSubject = new BehaviorSubject<number>(1);
+  page$ = this.pageSubject.asObservable();
+ 
+  totalPages$ = this.page$.pipe(
+    map(() => Math.ceil(this.items.length / this.pageSize))
+  );
+ 
+  paginatedItems$: Observable<string[]> = combineLatest([
+    this.page$,
+    this.totalPages$
+  ]).pipe(
+    map(([page]) => {
+      const start = (page - 1) * this.pageSize;
+      return this.items.slice(start, start + this.pageSize);
+    })
+  );
+ 
+  nextPage() {
+    this.pageSubject.next(this.pageSubject.value + 1);
+  }
+ 
+  prevPage() {
+    if (this.pageSubject.value > 1) {
+      this.pageSubject.next(this.pageSubject.value - 1);
+    }
+  }
+}

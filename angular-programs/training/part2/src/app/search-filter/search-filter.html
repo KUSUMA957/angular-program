@@ -1,0 +1,8 @@
+<input
+  type="text" 
+  placeholder="Search users..."
+  (keyup)="onSearch($event)"
+/>
+<ul>
+  <li *ngFor="let user of filteredUsers">{{ user }}</li>
+</ul>

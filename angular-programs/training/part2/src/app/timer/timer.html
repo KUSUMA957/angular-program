@@ -1,0 +1,13 @@
+<!-- <h2>Timer</h2>
+<div class="counter">{{ counter }}</div>
+<button (click)="start()">Start</button>
+<button (click)="stop()">Stop</button>
+<button (click)="reset()">Reset</button> -->
+
+<h2>Timer</h2>
+
+<div>{{ timer$ | async }}</div>
+
+<button (click)="start()">Start</button>
+<button (click)="stop()">Stop</button>
+<button (click)="reset()">Reset</button>

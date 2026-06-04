@@ -1,0 +1,81 @@
+<p>*ngFor → Display products</p>
+<div>
+  @for (prod of products; track prod) {
+    <div>{{ prod.name }} - {{ prod.category }} - {{ prod.price }}</div>
+  }
+</div>
+<p>*ngIf → Show only selected category</p>
+
+<div>
+  @for (item of products; let i = $index; track item) {
+    <div
+      class="item"
+      [class.selected]="i === selectedIndex"
+      (click)="select(i)"
+    >
+      {{ item.name }} - {{item.category}} - {{item.price}}
+    </div>
+  }
+</div>
+@if (selectedIndex !== null) {
+  <div>
+    Selected: <strong>{{ products[selectedIndex!].name }}</strong>
+  </div>
+}
+<p>
+  ngSwitch → Display category label styles<br />
+  Electronics → Blue <br />
+  Clothing → Green <br />
+  Footwear → Orange
+</p>
+<div>
+  <div
+    [class.active]="currentItemSelected() === 'Electronics'"
+    (click)="setSelectedItem('Electronics')"
+  >
+    Electronics
+  </div>
+  <div [class.active]="currentItemSelected() === 'Clothing'" (click)="setSelectedItem('Clothing')">
+    Clothing
+  </div>
+  <div [class.active]="currentItemSelected() === 'Footwear'" (click)="setSelectedItem('Footwear')">
+    Footwear
+  </div>
+</div>
+<div [ngSwitch]="currentItemSelected()">
+  <div *ngSwitchCase="'Electronics'">
+    <div class="blue">
+      <p>In Electronics</p>
+    </div>
+  </div>
+  <div *ngSwitchCase="'Clothing'">
+    <div class="green">
+      <p>In Clothing</p>
+    </div>
+  </div>
+  <div *ngSwitchCase="'Footwear'">
+    <div class="orange">
+      <p>In Footwear</p>
+    </div>
+  </div>
+  <div *ngSwitchDefault>
+    <div>
+      <p>None selected</p>
+    </div>
+  </div>
+</div>
+
+<p>Filter Products by Category</p>
+
+<select (change)="onCategorySelect($event)">
+  <option value="ALL">All</option>
+  <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+</select>
+
+<ul>
+  <li *ngFor="let p of filteredProducts">
+    {{ p.name }} - {{ p.category }} - {{ p.price }}
+  </li>
+</ul>
+
+<p *ngIf="filteredProducts.length === 0">No products found.</p>

@@ -1,0 +1,183 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">User Registration</h2>
+
+    <form #regForm="ngForm" (ngSubmit)="submit(regForm)" novalidate>
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="user.name"
+          required
+          minlength="3"
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+          placeholder="Enter your full name"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <span *ngIf="name.errors?.['required']">Name is required.</span>
+          <span *ngIf="name.errors?.['minlength']">Minimum 3 characters.</span>
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="user.email"
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+          placeholder="name@example.com"
+        />
+        <small class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors?.['required']">Email is required.</span>
+          <span *ngIf="email.errors?.['email']">Enter a valid email.</span>
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="user.password"
+          required
+          minlength="6"
+          #password="ngModel"
+          [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+          placeholder="Minimum 6 characters"
+        />
+        <small class="error" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <span *ngIf="password.errors?.['required']">Password is required.</span>
+          <span *ngIf="password.errors?.['minlength']">Minimum 6 characters.</span>
+        </small>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="confirm">Confirm Password</label>
+        <input
+          id="confirm"
+          name="confirm"
+          type="password"
+          [(ngModel)]="user.confirm"
+          required
+          #confirm="ngModel"
+          [class.is-invalid]="(confirm.dirty || confirm.touched) && passwordMismatch"
+          placeholder="Re-enter your password"
+        />
+        <small class="error" *ngIf="(confirm.dirty || confirm.touched) && passwordMismatch">
+          Confirm Password should match Password.
+        </small>
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="inline">
+          <label><input type="radio" name="gender" [(ngModel)]="user.gender" value="Male" required /> Male</label>
+          <label><input type="radio" name="gender" [(ngModel)]="user.gender" value="Female" required /> Female</label>
+          <label><input type="radio" name="gender" [(ngModel)]="user.gender" value="Other" required /> Other</label>
+        </div>
+        <small class="error" *ngIf="regForm.submitted && !user.gender">Gender is required.</small>
+      </div>
+
+      <!-- Skills (checkboxes) -->
+      <div class="form-group">
+        <label>Skills</label>
+        <div class="inline wrap">
+          <label *ngFor="let s of skillsList" class="chip">
+            <input
+              type="checkbox"
+              [checked]="user.skills.includes(s)"
+              (change)="toggleSkill(s, $event.target.checked)"
+            />
+            <span>{{ s }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Country (DROPDOWN ✅) -->
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select
+          id="country"
+          name="country"
+          [(ngModel)]="user.country"
+          required
+          #country="ngModel"
+          [class.is-invalid]="country.invalid && (country.dirty || country.touched)"
+        >
+          <option value="" disabled>Select</option>
+          <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+        </select>
+        <small class="error" *ngIf="country.invalid && (country.dirty || country.touched)">
+          Country is required.
+        </small>
+      </div>
+
+      <!-- ACTIONS (Submit button ✅ here) -->
+      <div class="actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="regForm.invalid || passwordMismatch"
+        >
+          Submit
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="reset(regForm)"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Pretty summary (NOT JSON) -->
+  <div class="card" *ngIf="showData">
+    <h3 class="card-subtitle">Submitted User</h3>
+
+    <div class="submitted">
+      <div class="rows">
+        <div class="row">
+          <span class="k">Name</span>
+          <span class="v">{{ user.name }}</span>
+        </div>
+        <div class="row">
+          <span class="k">Email</span>
+          <span class="v">{{ user.email }}</span>
+        </div>
+        <div class="row">
+          <span class="k">Gender</span>
+          <span class="v">{{ user.gender || '—' }}</span>
+        </div>
+        <div class="row">
+          <span class="k">Country</span>
+          <span class="v">{{ user.country || '—' }}</span>
+        </div>
+        <div class="row">
+          <span class="k">Skills</span>
+          <span class="v">
+            <ng-container *ngIf="user.skills?.length; else noSkills">
+              <span class="pill" *ngFor="let s of user.skills">{{ s }}</span>
+            </ng-container>
+            <ng-template #noSkills>—</ng-template>
+          </span>
+        </div>
+        <!-- Note: we intentionally do NOT display passwords -->
+      </div>
+    </div>
+  </div>
+</div>

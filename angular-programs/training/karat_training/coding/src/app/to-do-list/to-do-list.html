@@ -1,0 +1,21 @@
+<p>to-do-list !!</p>
+<div>
+    <input [(ngModel)]="tasks.task_name" type="text" placeholder="add tasks...">
+    <button (click)="addTasks()">Add Tasks</button>
+    <div *ngIf="list.length > 0; else other">
+        <div *ngFor="let task of list; let i=index">
+            <button (click) = "removeTasks(i)">Delete Task</button>
+            <button (click) = "completedTask(i)">Mark As Completed</button>
+            <div *ngIf = "list.isCompleted else notCompleted">
+                <p><strong>{{task.task_name}} </strong></p>
+            </div>
+            <ng-template #notCompleted>
+                 {{task.task_name}} 
+            </ng-template>
+        </div>
+    </div>
+    <ng-template #other>
+        <p>No Tasks Available</p>
+    </ng-template>
+    
+</div>

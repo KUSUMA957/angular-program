@@ -1,0 +1,81 @@
+<div class="app-container">
+  <!-- Navigation Header -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <!-- Logo -->
+      <div class="nav-logo">
+        <span class="logo-icon">🚀</span>
+        <span class="logo-text">Capgemini Solutions</span>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a routerLink="/home" routerLinkActive="active" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/about" routerLinkActive="active" class="nav-link">About</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/contact" routerLinkActive="active" class="nav-link">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <div class="hamburger" [class.active]="isMobileMenuOpen" (click)="toggleMobileMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <ul class="mobile-menu" [class.active]="isMobileMenuOpen">
+      <li class="mobile-nav-item">
+        <a routerLink="/home" routerLinkActive="active" class="mobile-nav-link" (click)="closeMobileMenu()">Home</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a routerLink="/about" routerLinkActive="active" class="mobile-nav-link" (click)="closeMobileMenu()">About</a>
+      </li>
+      <li class="mobile-nav-item">
+        <a routerLink="/contact" routerLinkActive="active" class="mobile-nav-link" (click)="closeMobileMenu()">Contact</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Capgemini Solutions</h3>
+          <p>Building the future, one solution at a time.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a routerLink="/home">Home</a></li>
+            <li><a routerLink="/about">About</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Connect</h4>
+          <div class="social-links">
+            <span class="social-link">🐦 Twitter</span>
+            <span class="social-link">💼 LinkedIn</span>
+            <span class="social-link">📧 Email</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Capgemini Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>

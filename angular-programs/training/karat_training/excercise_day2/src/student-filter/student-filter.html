@@ -1,0 +1,22 @@
+<h2>Student Marks: </h2>
+<!-- <button (click)="showPassed()">Passed Students</button>
+<button (click)="showFailed()">Failed Students</button>
+<button (click)="reset()">Reset</button>
+<p>Total Students: {{ filteredStudents.length }}</p>
+<ul>
+  <li *ngFor="let student of filteredStudents">
+    {{ student.name }} - {{ student.marks }}
+  </li>
+</ul> -->
+<button (click)="filterType = 'passed'">Passed Students</button>
+<button (click)="filterType = 'failed'">Failed Students</button>
+<button (click)="filterType = ''">Reset</button>
+<p>
+  Total Students:
+  {{ (students | studentMarksFilter:filterType).length }}
+</p>
+<ul>
+  <li *ngFor="let student of students | studentMarksFilter:filterType">
+    {{ student.name }} - {{ student.marks }}
+  </li>
+</ul>

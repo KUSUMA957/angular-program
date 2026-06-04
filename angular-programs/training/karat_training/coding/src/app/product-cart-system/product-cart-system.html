@@ -1,0 +1,21 @@
+<p>product-cart-system !!</p>
+<div *ngFor = "let product of products; let i = index" style="border:1px solid #ccc; padding:10px; margin:10px;">
+    <p><strong>Product Name: </strong>{{product.product_name}}</p>
+    <div *ngIf="product.product_price < 50000; else highlight">
+        <p><strong>Product Price: </strong>{{product.product_price}}</p>
+    </div>
+    <ng-template #highlight>
+        <p style="color: tomato;"><strong>Product Price: </strong>{{product.product_price}}</p>
+    </ng-template>
+    <!-- <p>{{product.product_quantity === 0}} ? "Out Of Stock": {{product.product_quantity}}></p> -->
+    <div *ngIf="product.product_quantity === 0; else stock">
+        Out Of Stock
+    </div>
+    <ng-template #stock>
+        <strong>Product Quantity: </strong>{{ product.product_quantity }}
+    </ng-template>
+    <br>
+    <br>
+    <button (click)= "increment(i)">Increment</button> 
+    <button (click)= "decrement(i)" [disabled] = "product.product_quantity <= 0">Decrement</button>
+</div>

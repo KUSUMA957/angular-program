@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Payment</h2>
+
+    <form #payForm="ngForm" (ngSubmit)="submit(payForm)" novalidate>
+      <!-- Payment Method -->
+      <div class="form-group">
+        <label for="method">Payment Method</label>
+        <select
+          id="method"
+          name="method"
+          [(ngModel)]="model.method"
+          required
+          #method="ngModel"
+          [class.is-invalid]="method.invalid && (method.dirty || method.touched)"
+          (ngModelChange)="onMethodChange()"
+        >
+          <option value="" disabled>Select</option>
+          <option *ngFor="let m of methods" [value]="m">{{ m }}</option>
+        </select>
+        <small class="error" *ngIf="method.invalid && (method.dirty || method.touched)">
+          Payment Method is required.
+        </small>
+      </div>
+
+      <!-- Credit / Debit Card fields -->
+      <div *ngIf="model.method === 'Credit Card' || model.method === 'Debit Card'">
+        <div class="form-two">
+          <!-- Card Number -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              id="cardNumber"
+              name="cardNumber"
+              [(ngModel)]="model.cardNumber"
+              required
+              minlength="12"
+              maxlength="19"
+              pattern="^[0-9 ]{12,19}$"
+              #card="ngModel"
+              [class.is-invalid]="card.invalid && (card.dirty || card.touched)"
+              placeholder="1234 5678 9012 3456"
+            />
+            <small class="hint">Digits only (you can add spaces); 12–19 digits</small>
+            <small class="error" *ngIf="card.invalid && (card.dirty || card.touched)">
+              <span *ngIf="card.errors?.['required']">Card Number is required.</span>
+              <span *ngIf="card.errors?.['minlength']">Enter at least 12 digits.</span>
+              <span *ngIf="card.errors?.['maxlength']">Max 19 digits/spaces allowed.</span>
+              <span *ngIf="card.errors?.['pattern']">Digits/spaces only.</span>
+            </small>
+          </div>
+
+          <!-- Expiry Date -->
+          <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input
+              id="expiry"
+              name="expiry"
+              type="month"
+              [(ngModel)]="model.expiry"
+              required
+              #exp="ngModel"
+              [class.is-invalid]="exp.invalid && (exp.dirty || exp.touched)"
+            />
+            <small class="error" *ngIf="exp.invalid && (exp.dirty || exp.touched)">
+              Expiry Date is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPI field -->
+      <div *ngIf="model.method === 'UPI'">
+        <div class="form-group">
+          <label for="upiId">UPI ID</label>
+          <input
+            id="upiId"
+            name="upiId"
+            [(ngModel)]="model.upiId"
+            required
+            #upi="ngModel"
+            [class.is-invalid]="upi.invalid && (upi.dirty || upi.touched)"
+            placeholder="name@bank"
+            pattern="^[a-zA-Z0-9.\-_]{2,}@[a-zA-Z]{2,}$"
+          />
+          <small class="hint">Format: name@bank (e.g., alex@upi, ramya@sbi)</small>
+          <small class="error" *ngIf="upi.invalid && (upi.dirty || upi.touched)">
+            <span *ngIf="upi.errors?.['required']">UPI ID is required.</span>
+            <span *ngIf="upi.errors?.['pattern']">Enter a valid UPI ID.</span>
+          </small>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="payForm.invalid">
+          Pay
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="reset(payForm)">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- (Optional) Simple success banner -->
+  <div class="card" *ngIf="submitted">
+    <h3 class="card-subtitle">Payment details captured.</h3>
+    <p class="muted">This demo only validates and captures values; no real payment is processed.</p>
+  </div>
+</div>

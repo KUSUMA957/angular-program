@@ -1,0 +1,213 @@
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="brand">
+    <span class="logo-dot"></span>
+    <span class="logo">Job<span>Findr</span></span>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn ghost" (click)="onUpdateProfile()">✏️ Update Profile</button>
+    <div class="divider"></div>
+    <div class="user">
+      <div class="avatar">{{ (user?.name || 'U').charAt(0).toUpperCase() }}</div>
+      <span class="hello">Hello, <b>{{ user?.name || 'User' }}</b></span>
+      <button class="btn danger outline" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== JOBS LIST (default) ===== -->
+<section *ngIf="showJobs" class="content fade-in">
+  <h2>Recommended Jobs</h2>
+  <p class="muted">Fresh list of jobs based on your profile.</p>
+
+  <div class="job-grid">
+    <div class="job-card" *ngFor="let j of jobs">
+      <div class="job-title">{{ j.title }}</div>
+      <div class="job-meta">{{ j.company }} • {{ j.location }}</div>
+      <div class="job-exp">Experience: {{ j.exp }}</div>
+      <button class="btn primary small">Apply</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFILE SECTIONS (shown only after clicking Update Profile) ===== -->
+<section *ngIf="showProfile" id="profile-top" class="content fade-in">
+  <!-- Back button -->
+  <div class="back-row">
+    <button class="btn soft" (click)="backToJobs()">← Back to Jobs</button>
+  </div>
+
+  <h2>Your Profile</h2>
+  <p class="muted">Fill the sections below. Use "Save All" at the bottom to store everything.</p>
+
+  <!-- Basic Details -->
+  <div class="card">
+    <h3>Basic Details</h3>
+    <div class="grid g-1">
+      <div class="field">
+        <label>Address</label>
+        <textarea [(ngModel)]="profile.basic.address" rows="2" placeholder="Your current address"></textarea>
+      </div>
+    </div>
+    <div class="grid g-3">
+      <div class="field">
+        <label>Fresher / Experienced</label>
+        <select [(ngModel)]="profile.basic.experienceType">
+          <option>Fresher</option>
+          <option>Experienced</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Level</label>
+        <input [(ngModel)]="profile.basic.level" placeholder="Junior / Mid / Senior" />
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input [(ngModel)]="profile.basic.email" placeholder="you@example.com" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Upload -->
+  <div class="card">
+    <h3>Resume</h3>
+    <div class="upload">
+      <input id="resumeFile" type="file" (change)="onResumeSelected($event)" />
+      <label for="resumeFile" class="btn soft">📄 Choose Resume</label>
+      <span class="muted" *ngIf="!profile.resume">No file chosen</span>
+    </div>
+
+    <div class="resume-info" *ngIf="profile.resume">
+      <div class="file-pill">📎 {{ profile.resume.fileName }}</div>
+      <a class="link" [href]="profile.resume.fileBase64" download="{{ profile.resume.fileName }}">Download</a>
+      <button class="btn danger" (click)="removeResume()">Remove</button>
+    </div>
+
+    <p class="muted small">
+      (Demo only: resume is stored in localStorage as base64. Real apps upload to server.)
+    </p>
+  </div>
+
+  <!-- Profile Summary -->
+  <div class="card">
+    <h3>Profile Summary</h3>
+    <p class="muted small">Highlight your key career achievements to help employers know your potential.</p>
+    <textarea [(ngModel)]="profile.summary" rows="4" placeholder="Write a short summary..."></textarea>
+  </div>
+
+  <!-- Key Skills -->
+  <div class="card">
+    <h3>Key Skills</h3>
+    <p class="muted small">Enter comma-separated skills. Example: Angular, TypeScript, RxJS</p>
+    <input [(ngModel)]="profile.keySkills" placeholder="e.g., Angular, TypeScript, RxJS" />
+    <div class="chips" *ngIf="profile.keySkills">
+      <span class="chip" *ngFor="let s of profile.keySkills.split(',').map(x => x.trim()).filter(x => x)">
+        {{ s }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Employment -->
+  <div class="card">
+    <h3>Employment</h3>
+    <div class="grid g-4">
+      <input [(ngModel)]="newEmployment.company" placeholder="Company" />
+      <input [(ngModel)]="newEmployment.role" placeholder="Role" />
+      <input [(ngModel)]="newEmployment.from" type="month" />
+      <input [(ngModel)]="newEmployment.to" type="month" />
+    </div>
+    <button class="btn soft" (click)="addEmployment()">+ Add Employment</button>
+
+    <ul class="list" *ngIf="profile.employment.length">
+      <li *ngFor="let e of profile.employment; let i = index">
+        <div>
+          <b>{{ e.role }}</b> at <b>{{ e.company }}</b>
+          <span class="muted small">({{ e.from }} - {{ e.to || 'Present' }})</span>
+        </div>
+        <button class="link danger" (click)="removeEmployment(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Projects -->
+  <div class="card">
+    <h3>Projects</h3>
+    <div class="grid g-3">
+      <input [(ngModel)]="newProject.name" placeholder="Project name" />
+      <input [(ngModel)]="newProject.tech" placeholder="Tech (comma separated)" />
+      <input [(ngModel)]="newProject.description" placeholder="Short description" />
+    </div>
+    <button class="btn soft" (click)="addProject()">+ Add Project</button>
+
+    <ul class="list" *ngIf="profile.projects.length">
+      <li *ngFor="let p of profile.projects; let i = index">
+        <div>
+          <b>{{ p.name }}</b> — {{ p.description }}
+          <div class="muted small">Tech: {{ p.tech }}</div>
+        </div>
+        <button class="link danger" (click)="removeProject(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- IT Skills -->
+  <div class="card">
+    <h3>IT Skills</h3>
+    <div class="grid g-2">
+      <input [(ngModel)]="newItSkill.name" placeholder="Skill (e.g., Angular)" />
+      <input [(ngModel)]="newItSkill.level" placeholder="Level (Beginner/Intermediate/Advanced)" />
+    </div>
+    <button class="btn soft" (click)="addItSkill()">+ Add IT Skill</button>
+
+    <ul class="list" *ngIf="profile.itSkills.length">
+      <li *ngFor="let s of profile.itSkills; let i = index">
+        <div><b>{{ s.name }}</b> — <span class="muted">{{ s.level }}</span></div>
+        <button class="link danger" (click)="removeItSkill(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Education -->
+  <div class="card">
+    <h3>Education</h3>
+    <div class="grid g-3">
+      <input [(ngModel)]="newEducation.degree" placeholder="Degree (e.g., B.Tech CSE)" />
+      <input [(ngModel)]="newEducation.institute" placeholder="Institute" />
+      <input [(ngModel)]="newEducation.year" placeholder="Year (YYYY)" />
+    </div>
+    <button class="btn soft" (click)="addEducation()">+ Add Education</button>
+
+    <ul class="list" *ngIf="profile.education.length">
+      <li *ngFor="let ed of profile.education; let i = index">
+        <div><b>{{ ed.degree }}</b> — {{ ed.institute }} ({{ ed.year }})</div>
+        <button class="link danger" (click)="removeEducation(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Certifications -->
+  <div class="card">
+    <h3>Certifications</h3>
+    <div class="grid g-3">
+      <input [(ngModel)]="newCertification.name" placeholder="Certification name" />
+      <input [(ngModel)]="newCertification.authority" placeholder="Authority (e.g., AWS)" />
+      <input [(ngModel)]="newCertification.year" placeholder="Year (YYYY)" />
+    </div>
+    <button class="btn soft" (click)="addCertification()">+ Add Certification</button>
+
+    <ul class="list" *ngIf="profile.certifications.length">
+      <li *ngFor="let c of profile.certifications; let i = index">
+        <div><b>{{ c.name }}</b> — {{ c.authority }} ({{ c.year }})</div>
+        <button class="link danger" (click)="removeCertification(i)">Remove</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Save All & Back -->
+  <div class="save-row">
+    <button class="btn soft" (click)="backToJobs()">← Back</button>
+    <div class="spacer"></div>
+    <button class="btn primary" (click)="saveAllAndGoToJobs()">💾 Save All & Go to Jobs</button>
+  </div>
+</section>

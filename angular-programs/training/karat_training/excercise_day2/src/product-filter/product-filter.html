@@ -1,0 +1,34 @@
+<h2>Product Category Filter</h2>
+
+<!-- <select [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+  <option value="">-- Select Category --</option>
+  <option *ngFor="let category of categories" [value]="category">
+    {{ category }}
+  </option>
+</select>
+
+<button (click)="resetFilter()">Reset</button>
+
+<p>Total Products: {{ filteredProducts.length }}</p>
+<ul>
+  <li *ngFor="let product of filteredProducts">
+    {{ product.name }} - {{ product.category }}
+  </li>
+</ul> -->
+
+<select [(ngModel)]="selectedCategory">
+  <option value="">-- Select Category --</option>
+  <option *ngFor="let category of categories" [value]="category">
+    {{ category }}
+  </option>
+</select>
+<button (click)="resetFilter()">Reset</button>
+<p>
+  Total Products:
+  {{ (products | productCategoryFilter:selectedCategory).length }}
+</p>
+<ul>
+  <li *ngFor="let product of products | productCategoryFilter:selectedCategory">
+    {{ product.name }} ({{ product.category }})
+  </li>
+</ul>

@@ -1,0 +1,7 @@
+<h2>User (NgRx)</h2>
+<div *ngIf="user$ | async as user">
+  <p><strong>Name:</strong> {{ user.name || '-' }}</p>
+  <p><strong>Role:</strong> {{ user.role || '-' }}</p>
+</div>
+<button (click)="updateUserData()">Update User</button>
+<button (click)="resetUserData()">Reset User</button>

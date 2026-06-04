@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Customer Feedback</h2>
+
+    <form #ff="ngForm" (ngSubmit)="submit(ff)" novalidate>
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="feedback.name"
+          required
+          minlength="2"
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+          placeholder="Enter your name"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <span *ngIf="name.errors?.['required']">Name is required.</span>
+          <span *ngIf="name.errors?.['minlength']">Minimum 2 characters.</span>
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="feedback.email"
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+          placeholder="name@example.com"
+        />
+        <small class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors?.['required']">Email is required.</span>
+          <span *ngIf="email.errors?.['email']">Enter a valid email.</span>
+        </small>
+      </div>
+
+      <!-- Rating (1–5) -->
+      <div class="form-group">
+        <label for="rating">Rating (1–5)</label>
+        <input
+          id="rating"
+          name="rating"
+          type="number"
+          min="1"
+          max="5"
+          [(ngModel)]="feedback.rating"
+          required
+          #rating="ngModel"
+          [class.is-invalid]="rating.invalid && (rating.dirty || rating.touched)"
+          placeholder="5"
+        />
+        <small class="error" *ngIf="rating.invalid && (rating.dirty || rating.touched)">
+          <span *ngIf="rating.errors?.['required']">Rating is required.</span>
+          <span *ngIf="rating.errors?.['min']">Minimum is 1.</span>
+          <span *ngIf="rating.errors?.['max']">Maximum is 5.</span>
+        </small>
+      </div>
+
+      <!-- Feedback Message -->
+      <div class="form-group">
+        <label for="message">Feedback</label>
+        <textarea
+          id="message"
+          name="message"
+          [(ngModel)]="feedback.message"
+          required
+          minlength="5"
+          #message="ngModel"
+          [class.is-invalid]="message.invalid && (message.dirty || message.touched)"
+          placeholder="Tell us what you think..."
+          rows="4"
+        ></textarea>
+        <small class="error" *ngIf="message.invalid && (message.dirty || message.touched)">
+          <span *ngIf="message.errors?.['required']">Feedback message is required.</span>
+          <span *ngIf="message.errors?.['minlength']">Minimum 5 characters.</span>
+        </small>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="ff.invalid">Submit</button>
+        <button type="button" class="btn btn-secondary" (click)="reset(ff)">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ Plain Text Display Below the Form -->
+  <div class="card">
+    <h3 class="card-subtitle">Average Rating: {{ averageRating }}</h3>
+
+    <div *ngIf="allFeedback.length === 0" class="muted">
+      No feedback yet. Be the first to submit.
+    </div>
+
+    <ul class="list" *ngIf="allFeedback.length > 0">
+      <li class="item" *ngFor="let f of allFeedback; let i = index">
+        <div class="item-head">
+          <span class="name">{{ f.name }}</span>
+          <span class="rating">{{ f.rating }}/5</span>
+        </div>
+        <div class="msg">{{ f.message }}</div>
+        <div class="email">{{ f.email }}</div>
+      </li>
+    </ul>
+  </div>
+</div>

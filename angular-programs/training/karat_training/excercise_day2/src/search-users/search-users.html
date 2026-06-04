@@ -1,0 +1,19 @@
+<h2>Search Users: </h2>
+<input
+  type="text"
+  placeholder="Search by name or email"
+  [(ngModel)]="searchText"
+/>
+
+<div *ngIf="users$ | async as users; else loading">
+  <p>Total Users: {{ (users | searchUser:searchText).length }}</p>
+  <ul>
+    <li *ngFor="let user of users | searchUser:searchText">
+      {{ user.name }} - {{ user.email }}
+    </li>
+  </ul>
+
+</div>
+<ng-template #loading>
+  <p><strong>Loading...</strong></p>
+</ng-template>

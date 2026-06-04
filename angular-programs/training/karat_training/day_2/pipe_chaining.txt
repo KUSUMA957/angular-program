@@ -1,0 +1,24 @@
+{{product.name | titlecase | slice:0:20}}
+{{product.price | currency:'INR' | number:'1.2-2'}}
+
+{{post.body | slice:0:100 | lowercase}}
+
+{{course.title | lowercase | slice:0:50}}
+{{course.description | slice:0:50 | lowercase}}
+
+{{messages | slice:0:30 | uppercase}}
+
+{{movie_review | slice:0:50 | titlecase}}
+
+
+
+//bug fixing
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+ name: 'usernameFormat'
+})
+export class UsernamePipe implements PipeTransform{
+ transform(value: string): string {
+   return value.toUpperCase();
+ }
+}

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bootstrap Navbar & Cards—All-in-One Demo</title>
+
+  <!-- Bootstrap 5 CSS (CDN) -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+
+  <style>
+    /* Just for section spacing and visual clarity in the demo */
+    section { padding: 3rem 0; }
+    .demo-title { margin-bottom: 1rem; }
+    .code-note { color: #6c757d; font-size: .9rem; }
+    .card-demo img { object-fit: cover; }
+  </style>
+</head>
+<body>
+
+  <!-- =========================
+       NAVBAR (Simple + Responsive)
+       ========================= -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container">
+      <!-- Brand -->
+      <a class="navbar-brand" href="#">MyWebsite</a>
+
+      <!-- Toggler (hamburger on mobile) -->
+      <button class="navbar-toggler" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+              aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible content -->
+      <div class="collapse navbar-collapse" id="navbarMenu">
+        <!-- Left aligned nav items -->
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#basic-card">Home</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#titles-text-links">Features</a></li>
+          <li class="nav-item"><a class="nav-link" href="#image-variants">Images</a></li>
+
+          <!-- Dropdown inside navbar -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#headers-footers">Headers & Footers</a></li>
+              <li><a class="dropdown-item" href="#layout-options">Layout Options</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#style-options">Color & Borders</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Optional: Search form on the right -->
+        <form class="d-flex ms-lg-3 mt-3 mt-lg-0" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+
+    <!-- =========================
+         BASIC CARD
+         ========================= -->
+    <section id="basic-card">
+      <h2 class="demo-title">Basic Card</h2>
+      <p class="code-note">A card is a content box. Common parts are: <code>.card</code>, <code>.card-img-top</code>, <code>.card-body</code>, <code>.card-title</code>, <code>.card-text</code>, and buttons.</p>
+
+      <div class="card card-demo" style="width: 20rem;">
+        <img src="https://picsum.photos/600/300?random=1" class="card-img-top" alt="Random scenic image">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         TITLES, SUBTITLES, TEXT, LINKS
+         ========================= -->
+    <section id="titles-text-links">
+      <h2 class="demo-title">Titles, Subtitles, Text & Links</h2>
+      <div class="card" style="width: 22rem;">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p class="card-text">
+            A subtitle uses <code>.card-subtitle</code>. Body text uses <code>.card-text</code>. Links use <code>.card-link</code>.
+          </p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         IMAGE VARIANTS
+         ========================= -->
+    <section id="image-variants">
+      <h2 class="demo-title">Image Variants</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card" style="width: 100%;">
+            <img src="https://picsum.photos/600/300?random=2" class="card-img-top" alt="Random image">
+            <div class="card-body">
+              <p class="card-text">Image placed at the top using <code>.card-img-top</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <p class="card-text">Image placed at the bottom using <code>.card-img-bottom</code>.</p>
+            </div>
+            <img src="https://picsum.photos/600/300?random=3" class="card-img-bottom" alt="Random image">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h5>Image Overlay (text on top of image)</h5>
+        <div class="card bg-dark text-white">
+          <img src="https://picsum.photos/1200/350?random=4" class="card-img" alt="Overlay background">
+          <div class="card-img-overlay d-flex flex-column justify-content-end">
+            <h5 class="card-title">Overlay title</h5>
+            <p class="card-text mb-0">This text overlays the image using <code>.card-img-overlay</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         LIST GROUPS INSIDE CARDS
+         ========================= -->
+    <section id="list-groups">
+      <h2 class="demo-title">List Groups in Cards</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card" style="width: 100%;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card" style="width: 100%;">
+            <div class="card-header">Featured</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card" style="width: 100%;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">An item</li>
+              <li class="list-group-item">A second item</li>
+              <li class="list-group-item">A third item</li>
+            </ul>
+            <div class="card-footer">Card footer</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         HEADERS & FOOTERS / QUOTE / CENTERED / TEXT ALIGN
+         ========================= -->
+    <section id="headers-footers">
+      <h2 class="demo-title">Headers & Footers, Quotes, Text Alignment</h2>
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">Featured</div>
+            <div class="card-body">
+              <h5 class="card-title">Special title treatment</h5>
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+            <div class="card-footer text-muted">2 days ago</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <!-- Quote card -->
+          <div class="card">
+            <div class="card-header">Quote</div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>“A well-known quote, contained in a blockquote element.”</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text alignment variants -->
+      <div class="row g-4 mt-1">
+        <div class="col-md-4">
+          <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Default (start)</h5>
+              <p class="card-text">Left-aligned by default.</p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Centered</h5>
+              <p class="card-text">Using <code>.text-center</code> on the card.</p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-end" style="width: 100%;">
+            <div class="card-body">
+              <h5 class="card-title">Right-aligned</h5>
+              <p class="card-text">Using <code>.text-end</code> on the card.</p>
+              <a href="#" class="btn btn-primary">Button</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         HORIZONTAL CARD (IMAGE LEFT, TEXT RIGHT)
+         ========================= -->
+    <section id="horizontal-card">
+      <h2 class="demo-title">Horizontal Card (Image + Text)</h2>
+      <div class="card mb-3" style="max-width: 720px;">
+        <div class="row g-0">
+          <div class="col-md-5">
+            <img src="https://picsum.photos/600/400?random=5" class="img-fluid rounded-start h-100 w-100" alt="Horizontal card image">
+          </div>
+          <div class="col-md-7">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This example uses grid classes inside a card to arrange image and content horizontally from the <code>md</code> breakpoint.</p>
+              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         COLOR & BORDER VARIANTS
+         ========================= -->
+    <section id="style-options">
+      <h2 class="demo-title">Background Colors & Borders</h2>
+
+      <div class="row g-4">
+        <!-- Background color variants -->
+        <div class="col-12">
+          <div class="d-flex flex-wrap gap-3">
+            <div class="card text-white bg-primary mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h5 class="card-title">Primary</h5>
+                <p class="card-text">Use <code>bg-primary</code> & <code>text-white</code>.</p>
+              </div>
+            </div>
+
+            <div class="card text-white bg-success mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h5 class="card-title">Success</h5>
+                <p class="card-text">Use <code>bg-success</code> & <code>text-white</code>.</p>
+              </div>
+            </div>
+
+            <div class="card text-dark bg-warning mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h5 class="card-title">Warning</h5>
+                <p class="card-text">Use <code>bg-warning</code> & <code>text-dark</code>.</p>
+              </div>
+            </div>
+
+            <div class="card text-white bg-dark mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body">
+                <h5 class="card-title">Dark</h5>
+                <p class="card-text">Use <code>bg-dark</code> & <code>text-white</code>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Border color variants -->
+        <div class="col-12">
+          <div class="d-flex flex-wrap gap-3 mt-3">
+            <div class="card border-primary mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body text-primary">
+                <h5 class="card-title">Border Primary</h5>
+                <p class="card-text">Use <code>border-primary</code>.</p>
+              </div>
+            </div>
+
+            <div class="card border-danger mb-0" style="width: 18rem;">
+              <div class="card-header">Header</div>
+              <div class="card-body text-danger">
+                <h5 class="card-title">Border Danger</h5>
+                <p class="card-text">Use <code>border-danger</code>.</p>
+              </div>
+            </div>
+
+            <div class="card border-success mb-0" style="width: 18rem;">
+              <div class="card-header bg-transparent border-success">Header</div>
+              <div class="card-body text-success">
+                <h5 class="card-title">Transparent Header</h5>
+                <p class="card-text">Use <code>bg-transparent</code> & matching border.</p>
+              </div>
+              <div class="card-footer bg-transparent border-success">Footer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         CARD GROUPS (equal height)
+         ========================= -->
+    <section id="card-groups">
+      <h2 class="demo-title">Card Groups (Equal Height)</h2>
+      <p class="code-note">Groups attach cards together and normalize heights.</p>
+      <div class="card-group">
+        <div class="card">
+          <img src="https://picsum.photos/600/300?random=6" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/600/300?random=7" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://picsum.photos/600/300?random=8" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has even longer content than the first to show equal height action.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         GRID CARDS (row-cols)
+         ========================= -->
+    <section id="layout-options">
+      <h2 class="demo-title">Grid Cards (Responsive <code>row-cols</code>)</h2>
+      <p class="code-note">Control how many cards per row with <code>.row-cols-*</code>. Use <code>g-*</code> for gutters.</p>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Card 1 -->
+        <div class="col">
+          <div class="card h-100">
+            <img src="https://picsum.photos/600/300?random=9" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Longer content to show alignment with equal heights.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col">
+          <div class="card h-100">
+            <img src="https://picsum.photos/600/300?random=10" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">This is a short card.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col">
+          <div class="card h-100">
+            <img src="https://picsum.photos/600/300?random=11" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Another card with some placeholder content to demonstrate layout behavior.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="col">
+          <div class="card h-100">
+            <img src="https://picsum.photos/600/300?random=12" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Demonstrates wrapping on smaller screens (1 per row), and 3 per row on md+.</p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- =========================
+         NAVIGATION INSIDE CARD HEADER (Tabs & Pills)
+         ========================= -->
+    <section id="card-with-tabs">
+      <h2 class="demo-title">Navigation in Card Header (Tabs / Pills)</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <!-- Tabs style -->
+          <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="true" href="#">Active</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Tabs in header</h5>
+              <p class="card-text">Use <code>.nav-tabs</code> with <code>.card-header-tabs</code>.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <!-- Pills style -->
+          <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+                <li class="nav-item"><a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a></li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Pills in header</h5>
+              <p class="card-text">Use <code>.nav-pills</code> with <code>.card-header-pills</code>.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Footer note -->
+    <section class="pb-5">
+      <p class="text-muted">
+        Tip: Combine cards with utilities (<code>p-*</code>, <code>m-*</code>, <code>g-*</code>, <code>w-*</code>, <code>h-*</code>) and grid system for flexible, responsive layouts.
+      </p>
+    </section>
+  </main>
+
+  <!-- Bootstrap 5 JS Bundle (with Popper) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>

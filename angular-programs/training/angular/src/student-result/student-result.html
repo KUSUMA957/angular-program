@@ -1,0 +1,41 @@
+<p>Student List</p>
+@for (stud of students; track stud) {
+  <div>{{ stud.name }} - {{ stud.marks }}</div>
+}
+
+<p>PASS-FAIL Validation</p>
+@for (stud of students; track stud) {
+  @if (stud.marks >= 50) {
+    <div>{{ stud.name }} - PASS</div>
+  } @else {
+    <div>{{ stud.name }} - FAIL</div>
+  }
+}
+
+<p>ngClass → Green for Pass Red for Fail Blue + bold for marks > 90</p>
+<div>
+  @for (stud of students; track stud) {
+    @if (stud.marks >= 50) {
+      @if(stud.marks > 90) {
+        <div class="pass"><strong>{{ stud.name }} - {{ stud.marks }}</strong></div>
+      }
+      @else {
+        <div class="pass">{{ stud.name }} - {{ stud.marks }}</div>
+      }
+    } @else {
+      <div class="fail">{{ stud.name }} - {{ stud.marks }}</div>
+    }
+  }
+</div>
+
+<p>Add a button: "Show Results" / "Hide Results" Use *ngIf to toggle list</p>
+<button class="toggle-btn" (click)="toggleElement()">
+  {{ isVisible ? 'Hide' : 'Show' }} Results
+</button>
+<div>
+  @if (isVisible) {
+    @for (stud of students; track stud) {
+      <div>{{ stud.name }} - {{ stud.marks }}</div>
+    }
+  }
+</div>

@@ -1,0 +1,232 @@
+<div class="employee-management">
+  <h2>Employee Management System</h2>
+
+  <!-- Error Display -->
+  <div *ngIf="error()" class="error-message">
+    <p>{{ error() }}</p>
+    <button (click)="clearError()" class="btn btn-small">Clear</button>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage()" class="success-message">
+    <p>{{ successMessage() }}</p>
+    <button (click)="clearSuccess()" class="btn btn-small">Close</button>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading()" class="loading">
+    <p>Loading...</p>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <button (click)="loadAllEmployees()" class="btn btn-primary">Load All Employees</button>
+    <button (click)="showCreateForm.set(true)" class="btn btn-success">Add New Employee</button>
+    <button (click)="refreshEmployees()" class="btn btn-secondary">Refresh from Server</button>
+  </div>
+
+  <!-- Search Employee by ID -->
+  <div class="search-section">
+    <h3>Search Employee by ID</h3>
+    <div class="search-form">
+      <input 
+        type="number" 
+        [(ngModel)]="searchId" 
+        placeholder="Enter Employee ID" 
+        class="form-input">
+      <button (click)="loadEmployeeById()" class="btn btn-primary">Search</button>
+      <button *ngIf="selectedEmployee()" (click)="clearSelectedEmployee()" class="btn btn-secondary">Clear</button>
+    </div>
+  </div>
+
+  <!-- Selected Employee Display -->
+  <div *ngIf="selectedEmployee()" class="selected-employee">
+    <h3>Selected Employee</h3>
+    <div class="employee-card">
+      <p><strong>ID:</strong> {{ selectedEmployee()?.id }}</p>
+      <p><strong>Name:</strong> {{ selectedEmployee()?.firstName }} {{ selectedEmployee()?.lastName }}</p>
+      <p><strong>Email:</strong> {{ selectedEmployee()?.email }}</p>
+      <p><strong>Position:</strong> {{ selectedEmployee()?.position }}</p>
+      <p><strong>Department:</strong> {{ selectedEmployee()?.department }}</p>
+      <p><strong>Salary:</strong> ${{ selectedEmployee()?.salary | number }}</p>
+      <button (click)="editEmployee(selectedEmployee()!)" class="btn btn-warning">Edit</button>
+      <button (click)="deleteEmployee(selectedEmployee()!.id)" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+
+  <!-- Create Employee Form -->
+  <div *ngIf="showCreateForm()" class="form-section">
+    <h3>Create New Employee</h3>
+    <form (ngSubmit)="createEmployee()" class="employee-form">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input 
+          type="text" 
+          id="firstName" 
+          [(ngModel)]="newEmployee.firstName" 
+          name="firstName" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input 
+          type="text" 
+          id="lastName" 
+          [(ngModel)]="newEmployee.lastName" 
+          name="lastName" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          [(ngModel)]="newEmployee.email" 
+          name="email" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="position">Position:</label>
+        <input 
+          type="text" 
+          id="position" 
+          [(ngModel)]="newEmployee.position" 
+          name="position" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="department">Department:</label>
+        <input 
+          type="text" 
+          id="department" 
+          [(ngModel)]="newEmployee.department" 
+          name="department" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="salary">Salary:</label>
+        <input 
+          type="number" 
+          id="salary" 
+          [(ngModel)]="newEmployee.salary" 
+          name="salary" 
+          required 
+          min="0" 
+          class="form-input">
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-success" [disabled]="loading()">Create Employee</button>
+        <button type="button" (click)="cancelCreate()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Update Employee Form -->
+  <div *ngIf="showUpdateForm()" class="form-section">
+    <h3>Update Employee</h3>
+    <form (ngSubmit)="updateEmployeeData()" class="employee-form">
+      <div class="form-group">
+        <label for="updateId">Employee ID:</label>
+        <input 
+          type="number" 
+          id="updateId" 
+          [(ngModel)]="updateEmployee.id" 
+          name="updateId" 
+          readonly 
+          class="form-input readonly">
+      </div>
+      <div class="form-group">
+        <label for="updateFirstName">First Name:</label>
+        <input 
+          type="text" 
+          id="updateFirstName" 
+          [(ngModel)]="updateEmployee.firstName" 
+          name="updateFirstName" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="updateLastName">Last Name:</label>
+        <input 
+          type="text" 
+          id="updateLastName" 
+          [(ngModel)]="updateEmployee.lastName" 
+          name="updateLastName" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="updateEmail">Email:</label>
+        <input 
+          type="email" 
+          id="updateEmail" 
+          [(ngModel)]="updateEmployee.email" 
+          name="updateEmail" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="updatePosition">Position:</label>
+        <input 
+          type="text" 
+          id="updatePosition" 
+          [(ngModel)]="updateEmployee.position" 
+          name="updatePosition" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="updateDepartment">Department:</label>
+        <input 
+          type="text" 
+          id="updateDepartment" 
+          [(ngModel)]="updateEmployee.department" 
+          name="updateDepartment" 
+          required 
+          class="form-input">
+      </div>
+      <div class="form-group">
+        <label for="updateSalary">Salary:</label>
+        <input 
+          type="number" 
+          id="updateSalary" 
+          [(ngModel)]="updateEmployee.salary" 
+          name="updateSalary" 
+          required 
+          min="0" 
+          class="form-input">
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-warning" [disabled]="loading()">Update Employee</button>
+        <button type="button" (click)="cancelUpdate()" class="btn btn-secondary">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Employees List -->
+  <div class="employees-list">
+    <h3>All Employees ({{ employees().length }})</h3>
+    <div *ngIf="employees().length === 0 && !loading()" class="no-data">
+      <p>No employees found. Click "Load All Employees" to fetch data.</p>
+    </div>
+    <div class="employees-grid" *ngIf="employees().length > 0">
+      <div *ngFor="let employee of employees()" class="employee-card">
+        <p><strong>ID:</strong> {{ employee.id }}</p>
+        <p><strong>Name:</strong> {{ employee.firstName }} {{ employee.lastName }}</p>
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p><strong>Position:</strong> {{ employee.position }}</p>
+        <p><strong>Department:</strong> {{ employee.department }}</p>
+        <p><strong>Salary:</strong> ${{ employee.salary | number }}</p>
+        <div class="card-actions">
+          <button (click)="editEmployee(employee)" class="btn btn-warning btn-small">Edit</button>
+          <button (click)="deleteEmployee(employee.id)" class="btn btn-danger btn-small">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

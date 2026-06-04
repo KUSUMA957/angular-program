@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Bootstrap Alerts Demo</title>
+</head>
+<body class="p-4">
+
+  <h2 class="mb-4">Bootstrap Alerts Demo</h2>
+
+  <!-- BASIC ALERTS -->
+  <div class="alert alert-primary">A simple PRIMARY alert</div>
+  <div class="alert alert-success">A simple SUCCESS alert</div>
+  <div class="alert alert-danger">A simple DANGER alert</div>
+
+  <!-- ALERT WITH LINKS -->
+  <div class="alert alert-warning">
+    A warning alert with <a href="#" class="alert-link">an example link</a>.
+  </div>
+
+  <!-- ALERT WITH MORE CONTENT -->
+  <div class="alert alert-info">
+    <h4 class="alert-heading">Information</h4>
+    <p>This alert has heading, text, and a divider.</p>
+    <hr>
+    <p class="mb-0">Use margin utilities to space content.</p>
+  </div>
+
+  <!-- ALERT WITH ICON -->
+  <div class="alert alert-dark d-flex align-items-center">
+    ⚠️ <span class="ms-2">An alert with a simple icon</span>
+  </div>
+
+  <!-- DISMISSIBLE ALERT -->
+  <div class="alert alert-danger alert-dismissible fade show">
+    <strong>Dismiss me!</strong> This alert can be closed.
+    <button class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+
+ 
+</body>
+</html>

@@ -1,0 +1,23 @@
+<form [formGroup]="admissionForm" (ngSubmit)="submitForm()">
+  <div>
+    <label>Student Name</label><br>
+    <input type="text" formControlName="studentName">
+  </div>
+
+  <div>
+    <label>Age</label><br>
+    <input type="number" formControlName="age">
+    <p *ngIf="admissionForm.controls['age'].touched && admissionForm.controls['age'].invalid">
+      Age must be greater than 5
+    </p>
+  </div>
+
+  <div>
+    <label>Course</label><br>
+    <input type="text" formControlName="course">
+  </div>
+
+  <button type="submit" [disabled]="admissionForm.invalid">
+    Submit
+  </button>
+</form>

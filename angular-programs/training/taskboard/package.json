@@ -1,0 +1,19 @@
+
+
+
+
+{
+  "name": "taskboard-backend",
+  "version": "1.0.0",
+  "description": "Lightweight Jira/Trello-like Task Board in TypeScript (backend-only, in-memory, interactive CLI)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "npm run build && node dist/cli.js",
+    "demo": "npm run build && node dist/demo.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.6.3"
+  }
+}

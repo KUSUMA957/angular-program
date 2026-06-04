@@ -1,0 +1,32 @@
+<div class="user-status-container">
+  @if (status() === 'loading') {
+    <div class="status-message loading">
+      <span class="spinner"></span>
+      Loading user data...
+    </div>
+  } @else if (status() === 'active') {
+    <div class="status-message active">
+      ✅ User is active and ready
+    </div>
+  } @else if (status() === 'blocked') {
+    <div class="status-message blocked">
+      🚫 User account is blocked
+    </div>
+  } @else {
+    <div class="status-message error">
+      ❌ Error loading user data
+    </div>
+    <button class="retry-button" (click)="onRetry()">
+      Retry
+    </button>
+  }
+  
+  <!-- Demo buttons to test different statuses -->
+  <div class="demo-controls">
+    <h4>Demo Controls:</h4>
+    <button (click)="status.set('loading')">Set Loading</button>
+    <button (click)="status.set('active')">Set Active</button>
+    <button (click)="status.set('blocked')">Set Blocked</button>
+    <button (click)="status.set('error')">Set Error</button>
+  </div>
+</div>

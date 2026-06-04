@@ -1,0 +1,15 @@
+<div class="container">
+
+  <h2 class="mb-3">Your Purchases</h2>
+
+  <div *ngIf="sales().length === 0">
+    No purchases yet.
+  </div>
+
+  <div *ngFor="let s of sales()" class="card p-3 mb-2">
+    <h4>{{ s.productName }}</h4>
+    <p><strong>Price:</strong> ₹{{ s.price }}</p>
+    <p><strong>Date:</strong> {{ s.date }}</p>
+  </div>
+
+</div>

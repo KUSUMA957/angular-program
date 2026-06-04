@@ -1,0 +1,113 @@
+<p>practice works!</p>
+<!-- 1) Display Name Using Interpolation -->
+<h2>Welcome {{ name }}</h2>
+
+<hr />
+
+<!-- 2) Character Counter -->
+<h3>Character Counter</h3>
+<textarea [(ngModel)]="textValue"></textarea>
+<p>Characters: {{ textValue.length }}</p>
+<p>You typed: {{ textValue }}</p>
+<hr />
+
+<!-- 3) Display Name, Email, Phone -->
+<h3>User Details (Interpolation)</h3>
+<p>Name: {{ userName }}</p>
+<p>Email: {{ email }}</p>
+<p>Phone: {{ phone }}</p>
+
+<hr />
+
+<!-- 4) Two Numbers Sum -->
+<h3>Sum of Two Numbers</h3>
+<input type="number" [(ngModel)]="num1" placeholder="Enter number 1" />
+<input type="number" [(ngModel)]="num2" placeholder="Enter number 2" />
+<p>Sum: {{ num1 + num2 }}</p>
+
+<hr />
+
+<h3>Sum of Two Numbers (Interpolation Only)</h3>
+<p>Number 1: {{ num3 }}</p>
+<p>Number 2: {{ num4 }}</p>
+<p>Sum = {{ num3 + num4 }}</p>
+<hr/>
+<!-- 5) Even or Odd -->
+<h3>Even or Odd</h3>
+<input type="number" [(ngModel)]="numberCheck" placeholder="Enter number" />
+<p>
+  Result:
+  {{ numberCheck % 2 === 0 ? 'Even' : 'Odd' }}
+</p>
+
+<hr />
+
+<!-- 6) Today’s Date -->
+<h3>Today's Date</h3>
+<p>{{ today }}</p>
+
+
+
+<!-- Day-2: -->
+ <h2>List of Students</h2>
+
+<ul>
+  @for (student of students; track student) {
+    <li>
+      {{ student }}
+    </li>
+  }
+</ul>
+
+
+
+<h2>Employee List</h2>
+<ul>
+  @for (emp of employees; track emp.id) {
+    <li>
+      ID: {{ emp.id }} — {{ emp.name }} — Salary: {{ emp.salary }}
+    </li>
+  }
+</ul>
+
+<h2>Even Numbers</h2>
+
+<ul>
+  @for (n of numbers; track n) {
+    <li>
+      @if (n % 2 === 0) {
+        <span>{{ n }}</span>
+      }
+    </li>
+  }
+</ul>
+
+<h3>Employees</h3>
+
+@for (e of employees; track e.id) {
+  <div
+    class="emp"
+    [class.high-salary]="e.salary > 50000"
+    [class.low-salary]="e.salary <= 50000"
+  >
+    {{ e.id }} — {{ e.name }} — ₹{{ e.salary }}
+  </div>
+}
+<h3>Items</h3>
+
+<div class="items">
+  @for (item of items; let i = $index; track item) {
+    <div
+      class="item"
+      [class.selected]="i === selectedIndex"
+      (click)="select(i)"
+    >
+      {{ item }}
+    </div>
+  }
+</div>
+@if (selectedIndex !== null) {
+  <div class="selection-status">
+    Selected: <strong>{{ items[selectedIndex!] }}</strong>
+  </div>
+}

@@ -1,0 +1,37 @@
+<div class="container">
+  <h1>File Upload with concatMap Demo</h1>
+  <p class="description">
+    This demo simulates uploading files sequentially using RxJS concatMap operator.
+    Each file takes 1-2 seconds to upload, and they are processed in order.
+  </p>
+
+  <div class="files-section">
+    <h2>Files to Upload:</h2>
+    <ul>
+      @for (file of files; track file.name) {
+        <li>
+          <div class="file-name">{{ file.name }}</div>
+          <div class="file-content">{{ file.content }}</div>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <button 
+    class="upload-btn" 
+    (click)="startUpload()" 
+    [disabled]="isUploading()">
+    {{ isUploading() ? 'Uploading...' : 'Start Upload' }}
+  </button>
+
+  @if (uploadLogs().length > 0) {
+    <div class="logs-section">
+      <h2>Upload Progress:</h2>
+      <div class="logs">
+        @for (log of uploadLogs(); track $index) {
+          <div class="log-entry">{{ log }}</div>
+        }
+      </div>
+    </div>
+  }
+</div>

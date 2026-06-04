@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Employee Details</h2>
+
+    <form #empForm="ngForm" novalidate>
+      <!-- Employee Name -->
+      <div class="form-group">
+        <label for="name">Employee Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="emp.name"
+          required
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+          placeholder="Enter employee name"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          Name is required.
+        </small>
+      </div>
+
+      <!-- Department (Dropdown) -->
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select
+          id="department"
+          name="department"
+          [(ngModel)]="emp.department"
+          required
+          #dept="ngModel"
+          [class.is-invalid]="dept.invalid && (dept.dirty || dept.touched)"
+        >
+          <option value="" disabled>Select department</option>
+          <option *ngFor="let d of departments" [value]="d">{{ d }}</option>
+        </select>
+        <small class="error" *ngIf="dept.invalid && (dept.dirty || dept.touched)">
+          Department is required.
+        </small>
+      </div>
+
+      <!-- Basic Salary -->
+      <div class="form-group">
+        <label for="basic">Basic Salary</label>
+        <input
+          id="basic"
+          name="basic"
+          type="number"
+          min="0"
+          [(ngModel)]="emp.basic"
+          (ngModelChange)="recalc()"
+          required
+          #basic="ngModel"
+          [class.is-invalid]="basic.invalid && (basic.dirty || basic.touched)"
+          placeholder="0"
+        />
+        <small class="error" *ngIf="basic.invalid && (basic.dirty || basic.touched)">
+          Basic Salary is required (≥ 0).
+        </small>
+      </div>
+
+      <!-- Bonus % -->
+      <div class="form-group">
+        <label for="bonus">Bonus %</label>
+        <input
+          id="bonus"
+          name="bonus"
+          type="number"
+          min="0"
+          [(ngModel)]="emp.bonus"
+          (ngModelChange)="recalc()"
+          required
+          #bonus="ngModel"
+          [class.is-invalid]="bonus.invalid && (bonus.dirty || bonus.touched)"
+          placeholder="0"
+        />
+        <small class="error" *ngIf="bonus.invalid && (bonus.dirty || bonus.touched)">
+          Bonus % is required (≥ 0).
+        </small>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" (click)="reset(empForm)">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ Plain Text Calculation + Result -->
+  <div class="card">
+    <h3 class="card-subtitle">Total Salary (Auto)</h3>
+    <p class="formula">
+      <strong>Formula:</strong>
+      Total Salary = Basic Salary + (Basic Salary × Bonus% / 100)
+    </p>
+    <div class="total">
+      <span>Total Salary:</span>
+      <strong>{{ total | number:'1.2-2' }}</strong>
+    </div>
+  </div>
+</div>

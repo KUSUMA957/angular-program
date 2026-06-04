@@ -1,0 +1,104 @@
+abstract class Person {
+  protected id: number; // accessible in child classes
+  private firstName: string = "";
+  private lastName: string = "";
+
+  constructor(id: number, firstName: string, lastName: string) {
+    this.id = id;
+    this.setFirstName(firstName);
+    this.setLastName(lastName);
+  }
+
+  setFirstName(value: string) {
+    if (!value || value.length < 2) {
+      throw new Error("First name too short");
+    }
+    this.firstName = value;
+  }
+
+  setLastName(value: string) {
+    if (!value || value.length < 1) {
+      throw new Error("Last name too short");
+    }
+    this.lastName = value;
+  }
+
+  getFullName() {
+    return this.firstName + " " + this.lastName;
+  }
+
+  abstract getSummary(): string;
+}
+
+class Teacher extends Person {
+  private subject: string = "";
+  static teacherCount = 0;
+
+  constructor(
+    id: number,
+    firstName: string,
+    lastName: string,
+    subject: string,
+  ) {
+    super(id, firstName, lastName);
+    this.setSubject(subject);
+    Teacher.teacherCount++;
+  }
+
+  setSubject(value: string) {
+    if (!value || value.length < 2) {
+      throw new Error("Subject too short");
+    }
+    this.subject = value;
+  }
+
+  getSummary() {
+    // polymorphism (override)
+    return `Teacher ${this.getFullName()} | Subject: ${this.subject}`;
+  }
+}
+
+class Student extends Person {
+  private grade: number = 1;
+  static studentCount = 0;
+  constructor(id: number, firstName: string, lastName: string, grade: number) {
+    super(id, firstName, lastName);
+    this.setGrade(grade);
+    Student.studentCount++;
+  }
+  setGrade(value: number) {
+    if (value < 1 || value > 10) {
+      throw new Error("Grade must be between 1 and 10");
+    }
+    this.grade = value;
+  }
+  improveGrade() {
+    if (this.grade < 10) {
+      this.grade++;
+    }
+  }
+  getSummary() {
+    // polymorphism (override)
+    return `Student ${this.getFullName()} | Grade: ${this.grade}`;
+  }
+}
+
+const t1: Person = new Teacher(1, "Shiva", "K.H", "Angular");
+const t2: Person = new Teacher(2, "Manish", "G", "SpringBoot");
+
+const s1: Person = new Student(101, "Kusuma", "Mogadala", 7);
+const s2: Person = new Student(102, "Teja", "Mogadala", 9);
+const s3: Student = new Student(103, "Maha", "M", 9);
+
+(s1 as Student).improveGrade();
+console.log(s3.getSummary());
+s3.improveGrade();
+console.log(s3.getSummary());
+
+const people: Person[] = [t1, t2, s1, s2];
+for (const p of people) {
+  console.log(p.getSummary()); 
+}
+
+console.log("Total Number Of Teachers:", Teacher.teacherCount);
+console.log("Total Number Of Students:", Student.studentCount);

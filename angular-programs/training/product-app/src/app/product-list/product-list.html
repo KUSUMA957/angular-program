@@ -1,0 +1,17 @@
+<p>product-list works!</p>
+<h2>Product List</h2>
+
+<!-- Add Product -->
+<input type="text" [(ngModel)]="newName" placeholder="Product Name" />
+<input type="number" [(ngModel)]="newPrice" placeholder="Price" />
+<button (click)="addProduct()">Add Product</button>
+
+<hr />
+
+<!-- Display Products -->
+<ul>
+  <li *ngFor="let p of products">
+    {{ p.name }} - {{ p.price }}
+    <button (click)="deleteProduct(p.id)">Delete</button>
+  </li>
+</ul>

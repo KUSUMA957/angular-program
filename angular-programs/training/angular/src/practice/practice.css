@@ -1,0 +1,81 @@
+.selectable-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.selectable-item {
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 6px 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  background: #fff;
+}
+
+.selectable-item:hover {
+  border-color: #888;
+}
+
+.selectable-item.selected {
+  background: #0078d4;
+  color: #fff;
+  border-color: #0078d4;
+}
+
+.selection-status {
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.emp {
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  margin: 6px 0;
+}
+
+.high-salary {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.low-salary {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #7f1d1d;
+}
+.items {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  padding: 10px 14px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  margin: 6px 0;
+  outline: none;
+}
+
+.item:focus {
+  box-shadow: 0 0 0 2px #cfe0ff;
+}
+
+.item.selected {
+  background: #e6f0ff !important;
+  border-color: #4c8dff !important;
+  font-weight: 700;
+}
+
+.selection-status {
+  margin-top: 8px;
+  font-size: 14px;
+}

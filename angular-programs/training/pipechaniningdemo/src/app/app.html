@@ -1,0 +1,94 @@
+<div class="container">
+  <h1>🔗 Angular Pipe Chaining Demo</h1>
+  
+  <!-- Basic Pipe Chaining Examples -->
+  <div class="demo-section">
+    <h2>💰 Currency & Number Formatting</h2>
+    <div class="example">
+      <label>Original Price:</label>
+      <span class="value">{{ price() }}</span>
+    </div>
+    <div class="example">
+      <label>Formatted Price:</label>
+      <span class="value highlight">{{ price() | currency:'USD':'symbol':'1.2-2' }}</span>
+      <code>price() | currency:'USD':'symbol':'1.2-2'</code>
+    </div>
+  </div>
+
+  <!-- String Pipe Chaining -->
+  <div class="demo-section">
+    <h2>✨ String Transformations</h2>
+    <div class="example">
+      <label>Original Message:</label>
+      <span class="value">"{{ message() }}"</span>
+    </div>
+    <div class="example">
+      <label>Chained Pipes:</label>
+      <span class="value highlight">{{ message() | trim | titlecase }}</span>
+      <code>message() | trim | titlecase</code>
+    </div>
+    <div class="example">
+      <label>More Chaining:</label>
+      <span class="value highlight">{{ message() | trim | uppercase | slice:0:15 }}</span>
+      <code>message() | trim | uppercase | slice:0:15</code>
+    </div>
+  </div>
+
+  <!-- Date Pipe Chaining -->
+  <div class="demo-section">
+    <h2>📅 Date Formatting</h2>
+    <div class="example">
+      <label>Today (Default):</label>
+      <span class="value">{{ today() }}</span>
+    </div>
+    <div class="example">
+      <label>Formatted Date:</label>
+      <span class="value highlight">{{ today() | date:'fullDate' | uppercase }}</span>
+      <code>today() | date:'fullDate' | uppercase</code>
+    </div>
+    <div class="example">
+      <label>Custom Format:</label>
+      <span class="value highlight">{{ today() | date:'EEEE, MMMM d, y' | titlecase }}</span>
+      <code>today() | date:'EEEE, MMMM d, y' | titlecase</code>
+    </div>
+  </div>
+
+  <!-- Array Pipe Chaining -->
+  <div class="demo-section">
+    <h2>👥 Employee Data (Array Pipes)</h2>
+    
+    <h3>🔍 Employee List with Pipe Chaining</h3>
+    <div class="employee-grid">
+      <div class="employee-card" 
+           *ngFor="let emp of employees() | slice:0:5">
+        <h4>{{ emp.name | titlecase }}</h4>
+        <p><strong>Dept:</strong> {{ emp.department | uppercase }}</p>
+        <p><strong>Salary:</strong> {{ emp.salary | currency:'USD':'symbol':'1.0-0' }}</p>
+        <p><strong>Joined:</strong> {{ emp.joinDate | date:'MMM yyyy' }}</p>
+      </div>
+    </div>
+
+    <h3>📊 Complex Chaining Example</h3>
+    <div class="complex-example">
+      <p class="highlight">
+        First 3 employees: 
+        <span *ngFor="let emp of employees() | slice:0:3; let last = last">
+          {{ emp.name | titlecase }}{{ !last ? ', ' : '' }}
+        </span>
+      </p>
+      <code>employees() | slice:0:3 → *ngFor → name | titlecase</code>
+    </div>
+  </div>
+
+  <!-- Key Takeaways -->
+  <div class="demo-section takeaways">
+    <h2>🎯 Key Takeaways</h2>
+    <ul>
+      <li><strong>Order Matters:</strong> <code>trim | titlecase</code> vs <code>titlecase | trim</code></li>
+      <li><strong>Performance:</strong> Pipes are pure functions - they only re-execute when inputs change</li>
+      <li><strong>Readability:</strong> Chain pipes left-to-right for clear data transformation flow</li>
+      <li><strong>Built-in Pipes:</strong> Angular provides many useful pipes out of the box</li>
+      <li><strong>Custom Pipes:</strong> Create your own pipes for specific transformations (like our trim pipe)</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div>
+  <h2>Employee Management</h2>
+  <div *ngIf="loading">
+    Loading...
+  </div>
+  <p *ngIf="errorMsg">
+    {{ errorMsg }}
+  </p>
+  <button (click)="getAllEmployees()">Get Employees</button>
+  <button (click)="addEmployee()">Add Employee</button>
+  <button (click)="updateEmployee()">Update Employee</button>
+  <button (click)="deleteEmployee()">Delete Employee</button>
+  <hr>
+  <div *ngFor= "let emp of employees">
+    {{emp.name}}
+  </div>
+</div>

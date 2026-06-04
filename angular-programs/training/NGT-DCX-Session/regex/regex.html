@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Regular Expressions</h1>
+    <h2>The match() Method</h2>
+    <p>Search for "hello" and display the first match:</p>
+    <p id="demo"></p>
+    <p>Replace "hello" with "hii" in the paragraph below:</p>
+    <p id="demo1">hello world</p>
+    <h1>Regular Expressions</h1>
+     <h2>The /g Flag</h2>
+    <p>A global search for "good" in a string:</p>
+    <p id="demo2"></p>
+    <h1>Regular Expressions</h1>
+    <h2>The \d Metacharacter</h2>
+    <p>A global search for digits in a string:</p>
+    <p id="demo3"></p>
+
+   <script>
+    let text = "hello world!"; 
+    const myArr = text.match(/hello/);
+    document.getElementById("demo").innerHTML = myArr;
+    let text1 = document.getElementById("demo1").innerHTML;
+    text1 = text1.replace(/hello/, "hii");
+    document.getElementById("demo1").innerHTML = text1;
+    let text2 = "good morning is always good";
+    const pattern = /good/g;
+    let result = text2.match(pattern);
+    document.getElementById("demo2").innerHTML = result; 
+    let text3 = "hi 1990!@";
+    const pattern1 = /\d/g;
+    let result1 = text3.match(pattern1);
+    document.getElementById("demo3").innerHTML = result1;
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<div class="dynamic-forms-container">
+  <h1>Dynamic Skills Form Using FormArray</h1>
+  
+  <!-- FormArray Example -->
+  <div class="form-section">
+    <h2>📋 Add Your Skills Dynamically</h2>
+    <p class="description">Add or remove skills as needed using Angular FormArray</p>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="skills-form">
+      <div formArrayName="skills" class="skills-container">
+        <div 
+          *ngFor="let skillGroup of skills.controls; let i = index" 
+          [formGroupName]="i"
+          class="skill-item"
+        >
+          <div class="skill-header">
+            <h4>Skill {{ i + 1 }}</h4>
+            <button 
+              type="button" 
+              (click)="removeSkill(i)"
+              class="btn btn-danger btn-sm"
+              [disabled]="skills.length <= 1"
+            >
+              ❌ Remove
+            </button>
+          </div>
+          
+          <div class="skill-fields">
+            <div class="field-group">
+              <label>Skill Name:</label>
+              <input 
+                type="text" 
+                formControlName="name" 
+                placeholder="e.g., Angular, React, Node.js"
+                class="form-control"
+                [class.error]="getSkillFormGroup(i).get('name')?.invalid && getSkillFormGroup(i).get('name')?.touched"
+              />
+              <div 
+                *ngIf="getSkillFormGroup(i).get('name')?.invalid && getSkillFormGroup(i).get('name')?.touched"
+                class="error-message"
+              >
+                Skill name is required
+              </div>
+            </div>
+            
+            <div class="field-group">
+              <label>Proficiency Level:</label>
+              <select 
+                formControlName="level" 
+                class="form-control"
+                [class.error]="getSkillFormGroup(i).get('level')?.invalid && getSkillFormGroup(i).get('level')?.touched"
+              >
+                <option value="">Select level</option>
+                <option value="beginner">🌱 Beginner</option>
+                <option value="intermediate">🚀 Intermediate</option>
+                <option value="advanced">⭐ Advanced</option>
+                <option value="expert">🏆 Expert</option>
+              </select>
+              <div 
+                *ngIf="getSkillFormGroup(i).get('level')?.invalid && getSkillFormGroup(i).get('level')?.touched"
+                class="error-message"
+              >
+                Please select proficiency level
+              </div>
+            </div>
+            
+            <div class="field-group">
+              <label>Years of Experience:</label>
+              <input 
+                type="number" 
+                formControlName="experience" 
+                min="0" 
+                max="50"
+                placeholder="Years"
+                class="form-control"
+                [class.error]="getSkillFormGroup(i).get('experience')?.invalid && getSkillFormGroup(i).get('experience')?.touched"
+              />
+              <div 
+                *ngIf="getSkillFormGroup(i).get('experience')?.invalid && getSkillFormGroup(i).get('experience')?.touched"
+                class="error-message"
+              >
+                Experience must be between 0 and 50 years
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" (click)="addSkill()" class="btn btn-secondary">
+          ➕ Add Another Skill
+        </button>
+        <button type="button" (click)="resetForm()" class="btn btn-outline">
+          🔄 Reset Form
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          ✅ Submit Skills
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Form Debug Information -->
+  <div class="debug-section">
+    <h3>🐛 Form Status</h3>
+    <div class="debug-item">
+      <p><strong>Form Valid:</strong> {{ form.valid ? '✅ Yes' : '❌ No' }}</p>
+      <p><strong>Form Touched:</strong> {{ form.touched ? '✅ Yes' : '❌ No' }}</p>
+      <p><strong>Number of Skills:</strong> {{ skills.length }}</p>
+      <details>
+        <summary>View Form Data</summary>
+        <pre>{{ form.value | json }}</pre>
+      </details>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+/* Layout */
+.container {
+  max-width: 680px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e8e8ee;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  margin-bottom: 18px;
+}
+
+.card-title {
+  margin: 0 0 14px;
+  font-size: 1.4rem;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+.card-subtitle {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: #334155;
+}
+
+/* Form controls */
+.form-group {
+  display: grid;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+label {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.hint {
+  font-weight: 500;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+input[type="text"],
+input[type="number"] {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.98rem;
+  color: #0f172a;
+  outline: none;
+  transition: border 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
+  background: #fff;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.is-invalid {
+  border-color: #ef4444 !important;
+  background: #fff7f7;
+}
+
+.error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
+/* Buttons */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.06s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #2563eb, #1d4ed8);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:disabled {
+  background: #93c5fd;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+/* Submitted details presentation */
+.details {
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+@media (max-width: 560px) {
+  .container {
+    margin-top: 20px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .btn {
+    width: 100%;
+  }
+}

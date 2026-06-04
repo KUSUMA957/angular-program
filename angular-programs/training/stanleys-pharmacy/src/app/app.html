@@ -1,0 +1,13 @@
+<!-- Show navbar only when logged in -->
+<nav *ngIf="auth.currentUser()" class="navbar navbar-dark bg-dark px-3 mb-4">
+  <a class="navbar-brand">Stanley's Pharmacy</a>
+
+  <div>
+    <a routerLink="/products" class="btn btn-primary me-2">Products</a>
+    <a routerLink="/sales" class="btn btn-secondary me-2">Sales</a>
+    <button class="btn btn-danger" (click)="auth.logout()">Logout</button>
+  </div>
+</nav>
+
+<!-- Load pages here -->
+<router-outlet></router-outlet>

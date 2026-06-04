@@ -1,0 +1,82 @@
+<p>student-details.component works!</p>
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Student Details</h2>
+
+    <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Student Name -->
+      <div class="form-group">
+        <label for="name">Student Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          [(ngModel)]="student.name"
+          required
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          Student Name is required.
+        </small>
+      </div>
+
+      <!-- Age -->
+      <div class="form-group">
+        <label for="age">Age <span class="hint">(18–60)</span></label>
+        <input
+          id="age"
+          name="age"
+          type="number"
+          [(ngModel)]="student.age"
+          required
+          min="18"
+          max="60"
+          #age="ngModel"
+          [class.is-invalid]="age.invalid && (age.dirty || age.touched)"
+        />
+        <small class="error" *ngIf="age.invalid && (age.dirty || age.touched)">
+          <span *ngIf="age.errors?.['required']">Age is required.</span>
+          <span *ngIf="age.errors?.['min']">Age must be at least 18.</span>
+          <span *ngIf="age.errors?.['max']">Age must be at most 60.</span>
+        </small>
+      </div>
+
+      <!-- Course -->
+      <div class="form-group">
+        <label for="course">Course</label>
+        <input
+          id="course"
+          name="course"
+          type="text"
+          [(ngModel)]="student.course"
+          required
+          #course="ngModel"
+          [class.is-invalid]="course.invalid && (course.dirty || course.touched)"
+        />
+        <small class="error" *ngIf="course.invalid && (course.dirty || course.touched)">
+          Course is required.
+        </small>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">
+          Submit
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="f.resetForm(); submitted = false;">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Display submitted data -->
+  <div class="card" *ngIf="submitted">
+    <h3 class="card-subtitle">Submitted Details</h3>
+    <div class="details">
+      <p><strong>Name:</strong> {{ student.name }}</p>
+      <p><strong>Age:</strong> {{ student.age }}</p>
+      <p><strong>Course:</strong> {{ student.course }}</p>
+    </div>
+  </div>
+</div>

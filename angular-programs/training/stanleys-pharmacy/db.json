@@ -1,0 +1,57 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Asha",
+      "email": "asha@example.com",
+      "password": "pass123"
+    },
+    {
+      "id": "2",
+      "name": "Ravi",
+      "email": "ravi@example.com",
+      "password": "pass123"
+    },
+    {
+      "id": "3",
+      "name": "kusuma",
+      "email": "kusuma@gmail.com",
+      "password": "kusuma"
+    },
+    {
+      "id": "4",
+      "name": "teja",
+      "email": "teja@gmail.com",
+      "password": "teja"
+    },
+    {
+      "id": "4322",
+      "name": "hemu",
+      "email": "hemu@gmail.com",
+      "password": "hemu"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Paracetamol 500mg",
+      "description": "Pain reliever & fever reducer",
+      "price": 25
+    },
+    {
+      "id": "2",
+      "name": "Vitamin C 1000mg",
+      "description": "Immunity support tablets",
+      "price": 120
+    },
+    {
+      "id": "3",
+      "name": "Cough Syrup",
+      "description": "Soothes cough and sore throat",
+      "price": 95
+    }
+  ],
+  "sales": [
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

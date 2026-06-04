@@ -1,0 +1,7 @@
+<button (click)="toggleLogin()">
+  {{ isLoggedIn ? 'Logout' : 'Login' }}
+</button>
+
+<p *ngIf="isLoggedIn">
+  Welcome, User!
+</p>

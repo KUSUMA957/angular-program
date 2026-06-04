@@ -1,0 +1,170 @@
+<div class="search-container">
+  <h1>Autocomplete Search with SwitchMap</h1>
+  
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="searchQuery"
+      (input)="onSearchInput(searchQuery)"
+      placeholder="Type to search... (try typing quickly!)"
+      class="search-input"
+    />
+    
+    @if (isLoading()) {
+      <div class="loading-indicator">Searching...</div>
+    }
+  </div>
+  
+  <div class="info-box">
+    <p><strong>How to test:</strong> Type quickly and notice that only the last query produces results. Previous API calls are cancelled by switchMap.</p>
+    <p><strong>Features:</strong></p>
+    <ul>
+      <li> 300ms debounce after typing stops</li>
+      <li> 1 second simulated API delay</li>
+      <li> switchMap cancels previous requests</li>
+      <li> Check browser console for detailed logs</li>
+    </ul>
+    @if (lastSearchTime()) {
+      <p class="last-search">Last search initiated: {{ lastSearchTime() }}</p>
+    }
+  </div>
+  
+  <div class="results-container">
+    @if (searchQuery && !isLoading()) {
+      <h3>Results ({{ searchResults().length }})</h3>
+      
+      @if (searchResults().length > 0) {
+        <ul class="results-list">
+          @for (result of searchResults(); track result) {
+            <li>{{ result }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="no-results">No results found for "{{ searchQuery }}"</p>
+      }
+    }
+  </div>
+</div>
+
+<style>
+  .search-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+  }
+
+  h1 {
+    color: #1976d2;
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+
+  .search-box {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: #1976d2;
+  }
+
+  .loading-indicator {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #1976d2;
+    font-weight: 500;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .info-box {
+    background-color: #f0f7ff;
+    border-left: 4px solid #1976d2;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+  }
+
+  .info-box p {
+    margin: 8px 0;
+    color: #333;
+  }
+
+  .info-box ul {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+
+  .info-box li {
+    margin: 5px 0;
+    color: #555;
+  }
+
+  .last-search {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+  }
+
+  .results-container {
+    margin-top: 20px;
+  }
+
+  .results-container h3 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+
+  .results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .results-list li {
+    padding: 12px 15px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .results-list li:hover {
+    background-color: #f5f5f5;
+    border-color: #1976d2;
+    transform: translateX(5px);
+  }
+
+  .no-results {
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+  }
+</style>

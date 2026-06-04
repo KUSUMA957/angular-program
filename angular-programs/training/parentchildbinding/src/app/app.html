@@ -1,0 +1,56 @@
+<div>
+  <h1>Parent Component</h1>
+  <h2>Parent-Child Data Binding with @Input</h2>
+  
+  <div>
+    <h3>Parent Data:</h3>
+    <p>Message: {{ parentMessage }}</p>
+    <p>Number: {{ parentNumber }}</p>
+    <p>User: {{ parentUser.name }} ({{ parentUser.age }} years old)</p>
+    
+    <div>
+      <button (click)="updateMessage()">Update Message</button>
+      <button (click)="updateNumber()">Update Number</button>
+      <button (click)="updateUser()">Update User</button>
+    </div>
+  </div>
+
+  <hr>
+  
+  <!-- Child component with @Input binding -->
+  <app-child 
+    [message]="parentMessage"
+    [number]="parentNumber"
+    [user]="parentUser">
+  </app-child>
+
+  <hr>
+
+  <!-- UserCardComponent examples -->
+  <h2>Reusable UserCard Components</h2>
+  <div class="user-cards-container">
+    <app-user-card 
+      *ngFor="let user of users"
+      [name]="user.name"
+      [email]="user.email"
+      [avatar]="user.avatar">
+    </app-user-card>
+  </div>
+
+  <hr>
+
+  <!-- ProductCardComponent - Reusable Component Example -->
+  <h2>Reusable Product Cards</h2>
+  <p><strong>This demonstrates TRUE reusability:</strong> Same component, different data, multiple instances</p>
+  
+  <div class="product-cards-container">
+    <app-product-card 
+      *ngFor="let product of products"
+      [name]="product.name"
+      [price]="product.price"
+      [description]="product.description"
+      [category]="product.category">
+    </app-product-card>
+  </div>
+</div>
+<app-parentcomponent></app-parentcomponent>

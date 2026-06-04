@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Login</h2>
+
+    <form #lf="ngForm" (ngSubmit)="submit(lf)" novalidate>
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          [(ngModel)]="creds.username"
+          required
+          #u="ngModel"
+          [class.is-invalid]="u.invalid && (u.dirty || u.touched)"
+          placeholder="Enter username"
+        />
+        <small class="error" *ngIf="u.invalid && (u.dirty || u.touched)">
+          Username is required.
+        </small>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="creds.password"
+          required
+          minlength="5"
+          #p="ngModel"
+          [class.is-invalid]="p.invalid && (p.dirty || p.touched)"
+          placeholder="Minimum 5 characters"
+        />
+        <small class="error" *ngIf="p.invalid && (p.dirty || p.touched)">
+          <span *ngIf="p.errors?.['required']">Password is required.</span>
+          <span *ngIf="p.errors?.['minlength']">Minimum length is 5.</span>
+        </small>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="lf.invalid">
+          Login
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="reset(lf)">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success Message -->
+  <div class="card" *ngIf="welcomeMsg">
+    <h3 class="card-subtitle">{{ welcomeMsg }}</h3>
+  </div>
+</div>

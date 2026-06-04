@@ -1,0 +1,189 @@
+// app-routing.module.ts
+import { NgModule, Component } from '@angular/core';
+import { RouterModule, Routes, Router, CanActivate } from '@angular/router';
+ 
+@Component({
+  template: `<h2>Home Page</h2>`
+})
+export class HomeComponent {}
+ 
+@Component({
+  template: `<h2>Profile Page</h2>`
+})
+export class ProfileComponent {}
+ 
+class AuthService {
+  loggedIn = false;
+ 
+  isAuthenticated() {
+    return this.loggedIn;
+  }
+}
+ 
+class ProfileGuard implements CanActivate {
+ 
+  constructor(private auth: AuthService, private router: Router) {}
+ 
+  canActivate() {
+    if (!this.auth.isAuthenticated()) {
+       this.router.navigate(['/home']);
+       return false;
+    }
+    return true;
+  }
+}
+ 
+const routes: Routes = [
+  { 
+    path: 'home', 
+    component: HomeComponent
+    },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [ProfileGuard]
+  },
+  { 
+    path: '', 
+    redirectTo: 'profile', 
+    pathMatch: 'full' 
+}
+];
+ 
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+
+// app-routing.module.ts
+import { RouterModule, Routes, CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Component, NgModule, Injectable } from '@angular/core';
+@Injectable({
+    providedIn: 'root'
+})
+class AuthService {
+  user = { role: 'USER' };
+  getRole() {
+    return this.user.role;
+  }
+}
+@Injectable({
+    providedIn: 'root'
+})
+class RoleGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) {}
+  canActivate(route: ActivatedRouteSnapshot) {
+    const allowedRole = route.data.role;
+    if (this.auth.getRole() === allowedRole) {
+      return true;
+    }
+
+    this.router.navigate(['/login']);
+    return false;
+  }
+}
+@Component({ template: `<h2>Admin</h2>` })
+export class AdminComponent {}
+@Component({ template: `<h2>User</h2>` })
+export class UserComponent {}
+const routes: Routes = [
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [RoleGuard],
+    data: { role: ['ADMIN'] }
+  },
+  {
+    path: 'user',
+    component: UserComponent,
+    canActivate: [RoleGuard],
+    data: { role: ['USER', 'ADMIN'] }
+  }
+];
+ 
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+
+
+
+// employee.actions.ts
+import { createAction, props } from '@ngrx/store';
+export const loadEmployees = createAction('[Employee] Load');
+ 
+export const loadEmployeesSuccess = createAction(
+  '[Employee] Load Success',
+  props<{ employees: any[] }>()
+);
+ 
+// employee.reducer.ts
+import { createReducer, on } from '@ngrx/store';
+
+export const employeeReducer = createReducer(
+  {},
+  on(loadEmployees, state => {
+    return { loading: true };
+  }),
+  on(loadEmployeesSuccess, (state, employees) => {
+    state.employees = employees;
+    return state;
+  })
+);
+ 
+// employee.effects.ts
+@Injectable()
+export class EmployeeEffects {
+ 
+  loadEmployees$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType('[Employee] Load'),
+      this.service.getEmployees(),
+      map(res => loadEmployeesSuccess(res))
+    )
+  );
+ 
+  constructor(
+    private actions$: Actions,
+    private service: EmployeeService
+  ) {}
+}
+
+
+// product.actions.ts
+import { createAction, props } from '@ngrx/store';
+export const loadProducts = createAction('[Product] Load');
+export const loadProductsSuccess = createAction('[Product] Load Success', props<{ productList: any[] }>());
+ 
+// product.reducer.ts
+import { createReducer, on } from '@ngrx/store';
+
+const initialState = [];
+export const productReducer = createReducer(
+  initialState,
+  on(loadProductsSuccess, (state, action) => {
+    state.push(...action.productList);
+    return state;
+  })
+);
+ 
+// product.selectors.ts
+import { createSelector } from '@ngrx/store';
+export const selectProducts = createSelector(
+  (state: any) => state.products,
+  state => state.items
+);
+ 
+// product.component.ts
+export class ProductComponent {
+  products$ = this.store.select('products');
+  constructor(private store: Store) {
+    this.store.dispatch(loadProducts());
+  }
+}
+
+
+

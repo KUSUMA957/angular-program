@@ -1,0 +1,9 @@
+.counter {
+  font-size: 40px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+}

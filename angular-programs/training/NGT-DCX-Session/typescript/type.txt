@@ -1,0 +1,10 @@
+it is statitically typed  superset of javascript that compiles javascript 
+ststic typing refers to when variables are explicitly declared with their datatypes like integer,string and boolean at compile time 
+var abc ="charisham,"
+abc = 123;
+we can do this in javascripyt 
+but in typescript 
+let x:number=100;
+let name:string ="charishma ";
+cmopilation flow 
+Type

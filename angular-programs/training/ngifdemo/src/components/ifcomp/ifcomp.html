@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>NgIf Demo</h2>
+  
+  <div class="button-container">
+    <button class="enable-btn" (click)="enableElement()">Enable</button>
+    <button class="disable-btn" (click)="disableElement()">Disable</button>
+    <button class="toggle-btn" (click)="toggleElement()">
+      {{ isVisible ? 'Hide' : 'Show' }} Red Area
+    </button>
+  </div>
+
+  <div class="dropdown-container">
+    <label for="citySelect">Select a City:</label>
+    <select id="citySelect" class="city-dropdown" (change)="onCitySelect($event)">
+      <option value="">Choose a city...</option>
+      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+    </select>
+    <p class="selected-city" *ngIf="selectedCity">
+      You selected: <strong>{{ selectedCity }}</strong>
+    </p>
+  </div>
+  
+  <div class="red-area" *ngIf="isVisible">
+    <p>This is a red colored area that appears and disappears using *ngIf!</p>
+    <p>Current status: Element is visible</p>
+  </div>
+  
+  <div class="status" *ngIf="!isVisible">
+    <p>Red area is currently hidden. Click "Enable" to show it.</p>
+  </div>
+</div>

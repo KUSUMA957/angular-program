@@ -1,0 +1,25 @@
+<!-- Reactive Component Interaction Demo -->
+<div class="app-container">
+  <app-header></app-header>
+  
+  <div class="content">
+    <app-category-selector></app-category-selector>
+    <app-statistics></app-statistics>
+    <app-item-list></app-item-list>
+  </div>
+  
+  <div class="info-panel">
+    <h3>🔹 How This Works</h3>
+    <ul>
+      <li>Components don't talk to each other directly</li>
+      <li>CategoryService acts as a mediator using BehaviorSubject</li>
+      <li>Updates flow through Observables</li>
+      <li>UI updates automatically when data changes</li>
+    </ul>
+    
+    <h4>Try it:</h4>
+    <p>Change the category in the dropdown above and watch how all components react automatically!</p>
+  </div>
+</div>
+
+<router-outlet />

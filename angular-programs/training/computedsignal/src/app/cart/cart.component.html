@@ -1,0 +1,16 @@
+<div class="cart-container">
+  <h2>🛒 Shopping Cart</h2>
+
+  <p><strong>Price per item:</strong> ₹{{ price() }}</p>
+  <p><strong>Quantity:</strong> {{ quantity() }}</p>
+
+  <button (click)="decreaseQty()">-</button>
+  <button (click)="increaseQty()">+</button>
+
+  <p><strong>Discount:</strong> {{ discount() }}%</p>
+  <input type="range" min="0" max="50" [value]="discount()" (input)="changeDiscount($event)" />
+
+  <hr />
+  <h3>Total Price (after discount): ₹{{ totalPrice() }}</h3>
+</div>
+

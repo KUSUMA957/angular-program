@@ -1,0 +1,139 @@
+<div class="posts-container">
+  <h2>Posts with Query Parameters</h2>
+  <p class="description">
+    This component demonstrates fetching posts from JSONPlaceholder API using query parameters like <code>?userId=1</code>.
+  </p>
+
+  <!-- Error Display -->
+  <div *ngIf="error()" class="error-message">
+    <p>{{ error() }}</p>
+    <button (click)="clearError()" class="btn btn-small">Clear</button>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading()" class="loading">
+    <p>Loading posts...</p>
+  </div>
+
+  <!-- Controls Section -->
+  <div class="controls-section">
+    <div class="control-group">
+      <h3>Filter Posts</h3>
+      
+      <!-- User ID Filter -->
+      <div class="filter-group">
+        <label for="userId">User ID (1-10):</label>
+        <input 
+          type="number" 
+          id="userId" 
+          [(ngModel)]="userId" 
+          min="1" 
+          max="10" 
+          class="form-input">
+        <button (click)="loadPostsByUserId()" class="btn btn-primary">Load Posts</button>
+      </div>
+
+      <!-- Advanced Filters -->
+      <div class="filter-group">
+        <label class="checkbox-label">
+          <input 
+            type="checkbox" 
+            [(ngModel)]="showLimitFilter" 
+            (change)="toggleLimitFilter()">
+          Apply Limit Filter
+        </label>
+        
+        <div *ngIf="showLimitFilter" class="limit-filter">
+          <label for="limit">Limit (1-100):</label>
+          <input 
+            type="number" 
+            id="limit" 
+            [(ngModel)]="limit" 
+            min="1" 
+            max="100" 
+            class="form-input">
+        </div>
+        
+        <button (click)="loadPostsWithFilters()" class="btn btn-success">Apply Filters</button>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="action-buttons">
+        <button (click)="loadAllPosts()" class="btn btn-secondary">Load All Posts</button>
+        <button *ngFor="let uid of [1, 2, 3, 4, 5]" 
+                (click)="loadUserPosts(uid)" 
+                class="btn btn-outline"
+                [class.active]="userId === uid">
+          User {{ uid }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistics -->
+  <div *ngIf="posts().length > 0" class="stats-section">
+    <h3>Statistics</h3>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number">{{ posts().length }}</span>
+        <span class="stat-label">Total Posts</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ getUniqueUserIds().length }}</span>
+        <span class="stat-label">Unique Users</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ getTotalWordCount() }}</span>
+        <span class="stat-label">Total Words</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ getUniqueUserIds().join(', ') }}</span>
+        <span class="stat-label">User IDs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts Display -->
+  <div class="posts-section">
+    <h3>Posts Results</h3>
+    
+    <div *ngIf="posts().length === 0 && !loading()" class="no-data">
+      <p>No posts found. Try selecting a user ID or loading all posts.</p>
+    </div>
+
+    <div *ngIf="posts().length > 0" class="posts-grid">
+      <div *ngFor="let post of posts(); trackBy: trackByPostId" class="post-card">
+        <div class="post-header">
+          <span class="post-id">Post #{{ post.id }}</span>
+          <span class="user-badge">User {{ post.userId }}</span>
+        </div>
+        <h4 class="post-title">{{ post.title }}</h4>
+        <p class="post-body">{{ post.body }}</p>
+        <div class="post-footer">
+          <small class="word-count">
+            {{ (post.title.split(' ').length + post.body.split(' ').length) }} words
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Information -->
+  <div class="api-info">
+    <h3>API Information</h3>
+    <p><strong>Base URL:</strong> <code>https://jsonplaceholder.typicode.com/posts</code></p>
+    <p><strong>Query Parameters Used:</strong></p>
+    <ul>
+      <li><code>?userId={{ userId }}</code> - Filter posts by user ID</li>
+      <li *ngIf="showLimitFilter"><code>&_limit={{ limit }}</code> - Limit number of results</li>
+    </ul>
+    <p><strong>Current URL:</strong> 
+      <code>
+        https://jsonplaceholder.typicode.com/posts?userId={{ userId }}<span *ngIf="showLimitFilter">&_limit={{ limit }}</span>
+      </code>
+    </p>
+  </div>
+</div>

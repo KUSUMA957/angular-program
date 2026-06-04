@@ -1,0 +1,10 @@
+<p>pipe-demo works!</p>
+<p>CourseNamebefore {{ courseName }} </p>
+<p>Course Name after pipe: {{ courseName | uppercase }}</p>
+<p>Course Name after lowercase pipe: {{ courseName | lowercase }}</p>
+<p>Current date is : {{ date | date:'fullDate' }}</p>
+<p>Student Details: {{ student | json}}</p>
+<p>Current Time: {{ currentTime }}</p>
+<p>current time after pipe: {{ currentTime | async }}</p>
+<p>Original value is {{ student.state | json }}</p>
+<p>Value after Napipe: {{ student.state | napipe }}</p>

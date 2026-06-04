@@ -1,0 +1,13 @@
+
+<div>
+    <p>search employees: </p>
+    <input type="text" [(ngModel)]="text" placeholder="search employees..."/>
+    <ul *ngIf ="(employees | employeeFilter:text).length > 0">
+        <li *ngFor="let emp of employees | employeeFilter: text">
+            {{emp.name}}
+        </li>
+    </ul>
+    <p *ngIf = "(employees | employeeFilter:text).length === 0">
+        No employees found with the text searched!!
+    </p>
+</div>

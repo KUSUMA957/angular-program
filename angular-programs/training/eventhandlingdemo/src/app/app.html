@@ -1,0 +1,46 @@
+<main class="page">
+  <header class="page__header">
+    <h1>Event Handling Demo</h1>
+    <div class="total">
+      <span>Total</span>
+      <strong>₹{{ total }}</strong>
+    </div>
+  </header>
+
+  <section class="grid">
+    <article class="card" *ngFor="let product of products">
+      <div>
+        <h3>{{ product.name }}</h3>
+        <p>₹{{ product.price }}</p>
+      </div>
+      <div class="actions">
+        <button class="btn" (click)="addToCart(product)">Add to Cart</button>
+        <button class="btn btn--ghost" (click)="removeFromCart(product)">Remove</button>
+      </div>
+    </article>
+  </section>
+
+  <section class="cart">
+    <div class="cart__header">
+      <h2>Cart</h2>
+      <button class="btn btn--danger" (click)="clearCart()" [disabled]="cart.length === 0">
+        Clear Cart
+      </button>
+    </div>
+
+    <div class="empty" *ngIf="cart.length === 0">No items in cart.</div>
+
+    <div class="cart__list" *ngIf="cart.length > 0">
+      <div class="cart__row" *ngFor="let item of cart">
+        <div>
+          <h4>{{ item.name }}</h4>
+          <p>₹{{ item.price }} × {{ item.qty }}</p>
+        </div>
+        <div class="row-actions">
+          <button class="btn btn--small" (click)="addToCart(item)">+</button>
+          <button class="btn btn--small btn--ghost" (click)="removeFromCart(item)">-</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

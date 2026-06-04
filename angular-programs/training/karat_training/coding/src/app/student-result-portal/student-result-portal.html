@@ -1,0 +1,13 @@
+<p>student-result-portal !!</p>
+<div>
+    <input [(ngModel)]="newStudent.name" type="text" placeholder="Students Name...">
+    <input [(ngModel)]="newStudent.marks" type="number" placeholder="Enter Marks...">
+    <button (click)="addStudent()">Add Students</button>
+    <button (click)="calculateGrade()">Calculate Grade</button>
+    <div *ngFor="let stud of students">
+        {{stud.name}} - {{stud.marks}} - 
+        <span [style.color]="stud.grade === 'Fail' ? 'red' : 'green'">
+            {{ stud.grade }}
+        </span>
+    </div>
+</div>

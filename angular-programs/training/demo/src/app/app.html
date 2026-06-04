@@ -1,0 +1,8 @@
+<!-- <app-counter-component></app-counter-component> -->
+<h2>Search Names: </h2>
+<input type = "text" [(ngModel)] = "searchText" placeholder="Search for names: " />
+<ul>
+  <li *ngFor = "let name of names | custompipe: searchText">
+    {{name}}
+  </li>
+</ul>

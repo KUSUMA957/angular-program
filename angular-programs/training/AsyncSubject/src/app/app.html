@@ -1,0 +1,310 @@
+<div class="container">
+  <h1>{{ title() }}</h1>
+  
+  <div class="explanation">
+    <h2>AsyncSubject Key Concept</h2>
+    <p>
+      AsyncSubject only emits the <strong>last value</strong> when the observable <strong>completes</strong>.
+      Perfect for scenarios where you want to hold a final computed result and broadcast it only when ready.
+    </p>
+  </div>
+
+  @if (!quizStarted()) {
+    <div class="start-section">
+      <button class="btn btn-primary" (click)="startQuiz()">
+        Start Quiz ({{ totalQuestions() }} Questions)
+      </button>
+    </div>
+  } @else {
+    <div class="quiz-section">
+      <div class="progress">
+        Question {{ currentQuestion() }} of {{ totalQuestions() }}
+      </div>
+
+      @if (canSubmitAnswer) {
+        <div class="question-card">
+          <h3>Question {{ currentQuestion() }}</h3>
+          <p>Did you answer correctly?</p>
+          <div class="button-group">
+            <button class="btn btn-success" (click)="submitAnswer(true)">
+              ✓ Correct
+            </button>
+            <button class="btn btn-danger" (click)="submitAnswer(false)">
+              ✗ Incorrect
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (canFinish) {
+        <div class="finish-section">
+          <button class="btn btn-primary btn-large" (click)="finishQuiz()">
+            🏁 Finish Quiz & Get Score
+          </button>
+          <p class="hint">Click to complete the quiz and broadcast the final score!</p>
+        </div>
+      }
+
+      @if (finalScore() !== null) {
+        <div class="score-card">
+          <h2>Final Score: {{ finalScore()!.toFixed(2) }}%</h2>
+          <button class="btn btn-secondary" (click)="resetQuiz()">
+            🔄 Start New Quiz
+          </button>
+        </div>
+      }
+
+      <div class="messages">
+        <h3>Event Log:</h3>
+        <div class="message-list">
+          @for (msg of scoreMessages(); track $index) {
+            <div class="message">{{ msg }}</div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <div class="code-explanation">
+    <h3>How AsyncSubject Works Here:</h3>
+    <ul>
+      <li>Each answer is submitted via <code>scoreSubject.next(score)</code></li>
+      <li>Subscribers are listening but receive <strong>nothing</strong> yet</li>
+      <li>Only when <code>scoreSubject.complete()</code> is called:</li>
+      <ul>
+        <li>The <strong>last emitted value</strong> (final score) is broadcasted</li>
+        <li>All subscribers receive the final score simultaneously</li>
+      </ul>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  h1 {
+    color: #1976d2;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  h2 {
+    color: #333;
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    color: #555;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .explanation {
+    background: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-left: 4px solid #1976d2;
+  }
+
+  .explanation p {
+    margin: 0.5rem 0 0 0;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .start-section {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .quiz-section {
+    margin-top: 2rem;
+  }
+
+  .progress {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1976d2;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .question-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .question-card h3 {
+    margin-top: 0;
+    color: #1976d2;
+  }
+
+  .question-card p {
+    margin: 1rem 0;
+    color: #666;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn-primary {
+    background: #1976d2;
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #1565c0;
+  }
+
+  .btn-success {
+    background: #4caf50;
+    color: white;
+  }
+
+  .btn-success:hover {
+    background: #43a047;
+  }
+
+  .btn-danger {
+    background: #f44336;
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background: #e53935;
+  }
+
+  .btn-secondary {
+    background: #757575;
+    color: white;
+  }
+
+  .btn-secondary:hover {
+    background: #616161;
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+  }
+
+  .finish-section {
+    text-align: center;
+    margin: 2rem 0;
+  }
+
+  .finish-section .hint {
+    margin-top: 1rem;
+    color: #666;
+    font-style: italic;
+  }
+
+  .score-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .score-card h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .messages {
+    margin-top: 2rem;
+    background: #fafafa;
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .message-list {
+    margin-top: 1rem;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .message {
+    background: white;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border-left: 3px solid #1976d2;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .code-explanation {
+    background: #fff3e0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 2rem;
+    border-left: 4px solid #ff9800;
+  }
+
+  .code-explanation h3 {
+    margin-top: 0;
+    color: #e65100;
+  }
+
+  .code-explanation ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+  }
+
+  .code-explanation li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  .code-explanation code {
+    background: #ffe0b2;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    color: #d84315;
+  }
+</style>
+

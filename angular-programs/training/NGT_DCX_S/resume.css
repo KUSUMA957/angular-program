@@ -1,0 +1,23 @@
+
+/* div {
+    border: 1px solid black;
+} */
+.name {
+    font-weight: bold;
+}
+.col-sm-6 ul {
+    list-style-type: none;
+     text-align: right;
+}
+.row {
+    display: flex;
+    align-items: center;
+}
+hr {
+    border-color: #333;
+}
+.edu-row {
+  display: flex;
+  justify-content: space-between;
+}
+

@@ -1,0 +1,9 @@
+<p>Products: </p>
+<div *ngFor="let prod of products()">
+    {{prod}}
+</div>
+<br>
+<button (click)="addProduct()">Add Product</button>
+<button (click)="addToCart()">Add To cart</button>
+<p>cart Count: {{cartCount}}</p>
+<p>Total items: {{totalItems()}}</p>

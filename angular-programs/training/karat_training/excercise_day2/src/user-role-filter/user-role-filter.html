@@ -1,0 +1,24 @@
+<h2>User Role Filter: </h2>
+
+<div class="filter-buttons">
+  <button
+    [class.active]="activeRole === 'All'"
+    (click)="activeRole = 'All'">
+    All
+  </button>
+  <button
+    *ngFor="let role of roles"
+    [class.active]="activeRole === role"
+    (click)="activeRole = role">
+    {{ role }}
+  </button>
+</div>
+<p>
+  Total Users:
+  {{ (users | userRoleFilter:activeRole).length }}
+</p>
+<ul>
+  <li *ngFor="let user of users | userRoleFilter:activeRole">
+    {{ user.name }} - {{ user.role }}
+  </li>
+</ul>

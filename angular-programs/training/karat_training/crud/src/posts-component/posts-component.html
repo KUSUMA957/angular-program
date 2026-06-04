@@ -1,0 +1,12 @@
+<p>Posts List: </p>
+<div *ngFor = "let post of posts">
+    <!-- <p>{{post.title}}</p> -->
+    <!-- <p>{{post.body}}</p> -->
+</div>
+<p>Total posts: {{posts.length}}</p>
+<button (click)="addPost()">Add Post</button>
+<div *ngFor="let post of posts">
+  <p><strong>{{ post.title }}</strong></p>
+  <p>{{ post.body }}</p>
+  <button (click)="deletePost(post.id)">Delete</button>
+</div>

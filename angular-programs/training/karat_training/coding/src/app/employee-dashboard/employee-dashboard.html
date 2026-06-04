@@ -1,0 +1,24 @@
+<!-- <p>employee-dashboard !!</p>
+<div>
+    <ul *ngFor= "let emp of employees">
+        {{emp.name}} - {{emp.department}} - {{emp.active_status ? "ActiveEmployee": "InactiveEmployee"}}
+    </ul>
+</div>
+<button (click) = "toggleStatus()">Toggle Status</button> -->
+<h2>Employee Dashboard</h2>
+<div *ngFor="let emp of employees; let i = index" style="border:1px solid #ccc; padding:10px; margin:10px;">
+  <p><strong>Name:</strong> {{ emp.name }}</p>
+  <p><strong>Department:</strong> {{ emp.department }}</p>
+  <p>
+    <strong>Status:</strong>
+    <span *ngIf="emp.active_status; else inactiveBlock" style="color: green;">
+      🟢 Active Employee
+    </span>
+    <ng-template #inactiveBlock>
+      <span style="color: red;">🔴 Inactive Employee</span>
+    </ng-template>
+  </p>
+  <button (click)="toggleStatus(i)">
+    Toggle Status
+  </button>
+</div>

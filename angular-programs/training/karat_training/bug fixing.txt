@@ -1,0 +1,182 @@
+//bug fixing
+//pipes
+// Question 1: Search Filter Not Working
+employees = ['Rahul', 'Priya', 'Amit'];
+searchText = '';
+ 
+get filteredEmployees() {
+  return this.employees.filter(emp =>
+    emp.toLowerCase().includes(this.searchText.toLowerCase())
+  );
+}
+ 
+ 
+// Question 2: Category Filter Not Updating
+<select [(ngModel)]="selectedCategory">
+<option>Electronics</option>
+<option>Clothing</option>
+</select>
+ 
+<div *ngFor="let product of filteredProducts">
+  {{ product.name }}
+</div>
+ 
+ 
+// Question 3: Failed Students Filter Wrong
+students = [
+  { name: 'Rahul', marks: 80 },
+  { name: 'Amit', marks: 20 }
+];
+ 
+failedStudents() {
+  return this.students.filter(student => student.marks < 35);
+}
+ 
+ 
+// Question 4: Dynamic Filter Not Triggering
+<input type="text" [(ngModel)]="searchText" />
+ 
+ 
+// Question 5: Filtered Count Incorrect
+get filteredCount() {
+  return this.filteredProducts.length;
+}
+ 
+ 
+// Question 6: Currency Pipe Not Working
+<h2>
+  {{ price | currency:'INR' }}
+</h2>
+ 
+ 
+// Question 7: Date Pipe Incorrect
+<p>
+  {{ today | date:'dd/MM/yyyy' }}
+</p>
+ 
+ 
+// Question 8: Custom Pipe Not Executing
+import { Pipe, PipeTransform } from '@angular/core';
+ 
+@Pipe({
+  name: 'usernameFormat'
+})
+export class UsernamePipe implements PipeTransform {
+  transform(value: string): string {
+    return value.toUpperCase();
+  }
+}
+ 
+ 
+// Question 9: Slice Pipe Not Working
+<div *ngFor="let product of products | slice:0:3">
+  {{ product }}
+</div>
+ 
+ 
+// Question 10: Lowercase Pipe Incorrect
+<h2>
+  {{ username | lowercase }}
+</h2>
+ 
+//rxjs
+ 
+// Question 1: Observable Not Emitting
+import { Observable } from 'rxjs';
+ 
+const data = new Observable(observer => {
+  observer.next('Hello');
+});
+ 
+data.subscribe(value => console.log(value));
+ 
+ 
+// Question 2: Subscription Not Working
+this.userService.getUsers().subscribe(users => {
+  console.log(users);
+});
+ 
+ 
+// Question 3: debounceTime Not Working
+import { fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+ 
+fromEvent(input, 'keyup')
+  .pipe(debounceTime(500))
+  .subscribe();
+ 
+ 
+// Question 4: Subject Not Updating UI
+import { Subject } from 'rxjs';
+ 
+cartCount = new Subject<number>();
+ 
+updateCount() {
+  this.cartCount.next(5);
+}
+ 
+ 
+// Question 5: Interval Not Stopping
+import { interval, Subscription } from 'rxjs';
+ subsc!:Subscription
+ ngOnInit() {
+  this.subsc = interval(1000)
+  .subscribe(value => console.log(value));
+ }
+ ngOnDestroy() {
+  this.subsc.unsubscribe();
+ }
+
+ 
+ 
+// Question 1: ngOnInit Not Executing
+import { OnInit } from '@angular/core';
+ 
+ngOnInit() {
+  console.log('Loaded');
+}
+ 
+ 
+// Question 2: ngOnChanges Not Detecting Data
+import { Input, OnChanges } from '@angular/core';
+ 
+export class ChildComponent implements OnChanges {
+  @Input() username = '';
+ 
+  ngOnChanges() {
+    console.log('Changed');
+  }
+}
+ 
+ 
+// Question 3: ngAfterViewInit Issue
+import { AfterViewInit } from '@angular/core';
+ 
+ngAfterViewInit() {
+  console.log('View Ready');
+}
+ 
+ 
+// Question 4: Subscription Cleanup Missing
+import { OnDestroy } from '@angular/core';
+import { interval } from 'rxjs';
+ 
+subscription: any;
+ 
+ngOnInit() {
+  this.subscription = interval(1000).subscribe();
+}
+ 
+ngOnDestroy() {
+  this.subscription.unsubscribe();
+}
+ 
+ 
+// Question 5: ViewChild Undefined
+import { ViewChild, AfterViewInit } from '@angular/core';
+ 
+@ViewChild('child') child: any;
+ 
+ngAfterViewInit() {
+  this.child.showData();
+}

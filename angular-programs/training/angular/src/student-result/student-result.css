@@ -1,0 +1,14 @@
+.pass {
+    color: green;
+}
+.fail {
+    color: red;
+}
+.toggle-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.toggle-btn:hover {
+  background-color: #1976D2;
+}

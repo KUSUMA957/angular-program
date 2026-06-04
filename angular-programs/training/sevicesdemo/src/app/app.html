@@ -1,0 +1,58 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>🚀 {{ title() }}</h1>
+    <p>Demonstrating Angular Services with @Injectable and Dependency Injection</p>
+  </header>
+
+  <nav class="app-nav">
+    <button 
+      class="nav-btn" 
+      [class.active]="activeTab() === 'list'"
+      (click)="setActiveTab('list')">
+      📋 User List
+    </button>
+    <button 
+      class="nav-btn" 
+      [class.active]="activeTab() === 'add'"
+      (click)="setActiveTab('add')">
+      ➕ Add User
+    </button>
+    <button 
+      class="nav-btn" 
+      [class.active]="activeTab() === 'search'"
+      (click)="setActiveTab('search')">
+      🔍 Search Users
+    </button>
+  </nav>
+
+  <main class="app-content">
+    <div>
+      <h2>Current Tab: {{ activeTab() }}</h2>
+      <p>Angular Services are working! This demonstrates:</p>
+      <ul>
+        <li><strong>@Injectable with providedIn: 'root'</strong> - Singleton service pattern</li>
+        <li><strong>Dependency injection</strong> - Service sharing across components</li>
+        <li><strong>Service methods</strong> - Business logic separated from UI</li>
+      </ul>
+      
+      <div style="background: rgba(255,255,255,0.9); padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3>�️ Service Demo</h3>
+        <p>The UserService manages data and provides methods to components.</p>
+        <p>Try adding or clearing users to see how the service maintains state!</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <div class="service-info">
+      <h3>🛠️ What This Demo Shows:</h3>
+      <ul>
+        <li><strong>@Injectable with providedIn: 'root'</strong> - Creates a singleton service</li>
+        <li><strong>Dependency Injection</strong> - Service injected into components using inject()</li>
+        <li><strong>Service Methods</strong> - CRUD operations, business logic</li>
+        <li><strong>Data Management</strong> - Service maintains application state</li>
+        <li><strong>Cross-Component Communication</strong> - Sharing data via service</li>
+      </ul>
+    </div>
+  </footer>
+</div>

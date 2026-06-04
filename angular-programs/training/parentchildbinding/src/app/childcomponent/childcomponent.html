@@ -1,0 +1,27 @@
+<p>childcomponent works!</p>
+<p>UserName: {{name}}</p>
+
+<div>
+  @for (prod of products; track prod.productName) {
+    <div
+      [ngStyle]="{ color: prod.inStock ? 'green' : 'red' }"
+    >
+      <span>{{ prod.productName }}</span> —
+      <span>₹{{ prod.productPrice }}</span> —
+      @if (prod.inStock) {
+        <span>In stock</span>
+      } @else {
+        <span>Out of stock</span>
+      }
+    </div>
+  }
+</div>
+
+<div>
+  user: {{user.name}}
+  <br>
+  age: {{user.age}}
+  <br>
+  role: {{user.role}}
+  <br>
+</div>

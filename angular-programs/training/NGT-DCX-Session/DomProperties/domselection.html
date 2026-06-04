@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <h1 id ="main-heading">hello</h1>
+    <p class ="list-item">hii</p>
+    <p class ="list-item">hii</p>
+    <p class ="list-item">hii</p>
+    <button class ="btn btn-primary">First Button</button>
+    <button class ="btn ">secondButton</button>
+    <script>
+        var heading = document.getElementById("main-heading");
+        heading.style.color="blue";
+        heading.style.fontSize="30px";
+        var items = document.getElementsByClassName("list-item");
+        // items[0].style.color="green"
+        // items[1].style.color="blue"
+        // items[2].style.color="red"
+        // for(var i=0;i<items.length;i++){
+        //   items[i].style.color ="Green";
+        //   items[i].style.fontSize="60px";
+
+        // }
+        var paragraph = document.getElementsByTagName("p");
+        paragraph[0].style.color ="Green";
+        paragraph[1].style.color ="red";
+        paragraph[2].style.color ="blue";
+
+        var firstbutton = document.querySelector(".btn");
+        firstbutton.style.backgroundColor ="Green";
+        firstbutton.style.color="red";
+
+        var secondButton = document.querySelectorAll(".btn");
+        secondButton[1].style.backgroundColor ="blue";
+        secondButton[1].style.color="white";
+
+
+
+    </script>
+</body>
+</html>

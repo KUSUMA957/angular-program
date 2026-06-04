@@ -1,0 +1,15 @@
+<h2>User List</h2>
+
+<div class="input-row">
+  <input [(ngModel)]="userName" placeholder="Enter name" />
+  <button (click)="addUser()">Add User</button>
+  <button (click)="loadUsers()">List Users</button>
+</div>
+
+<!-- only show list AFTER clicking list button -->
+<ul *ngIf="users$ | async as users">
+  <li *ngFor="let u of users">
+    {{ u.id }} - {{ u.name }}
+    <button (click)="removeUser(u.id)">Remove</button>
+  </li>
+</ul>

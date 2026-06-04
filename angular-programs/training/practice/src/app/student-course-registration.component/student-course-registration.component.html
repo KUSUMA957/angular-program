@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">Student Course Registration</h2>
+
+    <form #scf="ngForm" (ngSubmit)="submit(scf)" novalidate>
+      <!-- Student Name -->
+      <div class="form-group">
+        <label for="name">Student Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="formData.name"
+          required
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+          placeholder="Enter student name"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          Student Name is required.
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="formData.email"
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+          placeholder="name@example.com"
+        />
+        <small class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors?.['required']">Email is required.</span>
+          <span *ngIf="email.errors?.['email']">Enter a valid email.</span>
+        </small>
+      </div>
+
+      <!-- Course (Dropdown) -->
+      <div class="form-group">
+        <label for="course">Course</label>
+        <select
+          id="course"
+          name="course"
+          [(ngModel)]="formData.course"
+          required
+          #course="ngModel"
+          [class.is-invalid]="course.invalid && (course.dirty || course.touched)"
+        >
+          <option value="" disabled>Select course</option>
+          <option *ngFor="let c of courses" [value]="c">{{ c }}</option>
+        </select>
+        <small class="error" *ngIf="course.invalid && (course.dirty || course.touched)">
+          Course is required.
+        </small>
+      </div>
+
+      <!-- Mode (Radio) -->
+      <div class="form-group">
+        <label>Mode</label>
+        <div class="inline">
+          <label>
+            <input type="radio" name="mode" [(ngModel)]="formData.mode" value="Online" />
+            Online
+          </label>
+          <label>
+            <input type="radio" name="mode" [(ngModel)]="formData.mode" value="Offline" />
+            Offline
+          </label>
+        </div>
+      </div>
+
+      <!-- Subjects (Checkbox) -->
+      <div class="form-group">
+        <label>Subjects</label>
+        <div class="inline wrap">
+          <label *ngFor="let s of subjectsList" class="chip">
+            <input
+              type="checkbox"
+              [checked]="formData.subjects.includes(s)"
+              (change)="toggleSubject(s, $event.target.checked)"
+            />
+            <span>{{ s }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="submit" class="btn btn-primary" [disabled]="scf.invalid">Submit</button>
+        <button type="button" class="btn btn-secondary" (click)="reset(scf)">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ✅ Plain Text Display Below the Form (NG8107-safe) -->
+  <div class="card" *ngIf="submittedView as s">
+    <h3 class="card-subtitle">Submitted Details</h3>
+
+    <div class="rows">
+      <div class="row">
+        <span class="k">Student Name</span>
+        <span class="v">{{ s.name }}</span>
+      </div>
+
+      <div class="row">
+        <span class="k">Course Selected</span>
+        <span class="v">{{ s.course }}</span>
+      </div>
+
+      <div class="row">
+        <span class="k">Mode</span>
+        <span class="v">{{ s.mode }}</span>
+      </div>
+
+      <div class="row">
+        <span class="k">Subjects Selected</span>
+        <span class="v">
+          <ng-container *ngIf="s.subjects.length; else noSubjects">
+            {{ s.subjects.join(', ') }}
+          </ng-container>
+          <ng-template #noSubjects>—</ng-template>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

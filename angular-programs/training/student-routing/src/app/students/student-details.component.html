@@ -1,0 +1,22 @@
+<!-- <h2>Student Details</h2>
+
+<p>Student ID from URL is: {{ studentId }}</p>
+
+<br>
+
+<button routerLink="/students">Back to List</button> -->
+
+<h2>Student Details</h2>
+
+<div *ngIf="student; else noStudent">
+  <p>ID: {{ student.id }}</p>
+  <p>Name: {{ student.name }}</p>
+</div>
+
+<ng-template #noStudent>
+  <p>No student present.</p>
+</ng-template>
+
+<br>
+
+<button routerLink="/students">Back to List</button>

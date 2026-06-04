@@ -1,0 +1,27 @@
+@Component({
+  selector: 'app-child',
+  template: `
+    <p>{{ user.name }}</p>
+    <input #nameInput />
+  `
+})
+export class ChildComponent {
+ 
+  @Input() user: any;
+  data: any;
+  @ViewChild('nameInput') input!: ElementRef;
+  constructor(private service: UserService) {
+    this.service.getData().subscribe(res => {
+      this.data = res;
+    });
+  }
+ 
+  ngOnInit() {
+    console.log('User:', this.user.name);
+    this.input.nativeElement.focus();
+  }
+ 
+  ngOnDestroy() {
+    console.log('Component destroyed');
+  }
+}

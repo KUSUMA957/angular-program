@@ -1,0 +1,15 @@
+<div class="container">
+
+  <h2 class="mb-3">Products</h2>
+
+  <input class="form-control mb-3" placeholder="Search..." [(ngModel)]="searchTerm" (input)="search()">
+
+  <div *ngFor="let p of products()" class="card mb-3 p-3">
+    <h4>{{ p.name }}</h4>
+    <p>{{ p.description }}</p>
+    <p><strong>Price:</strong> ₹{{ p.price }}</p>
+
+    <button class="btn btn-primary" (click)="purchase(p)">Purchase</button>
+  </div>
+
+</div>

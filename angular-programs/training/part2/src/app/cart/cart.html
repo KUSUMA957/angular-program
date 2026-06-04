@@ -1,0 +1,23 @@
+<h2>Shopping Cart</h2>
+
+<div class="input-row">
+  <input type="text" [(ngModel)]="itemName" placeholder="Item name" />
+  <input type="number" [(ngModel)]="itemPrice" placeholder="Price" />
+  <input type="number" [(ngModel)]="itemQuantity" placeholder="Qty" min="1" />
+  
+  <button (click)="addItem()">Add Item</button>
+</div>
+
+<h3>Cart Items</h3>
+
+<ul>
+  <li *ngFor="let item of cartItems$ | async">
+    <span>
+      {{ item.name }} — ₹{{ item.price }} × {{ item.quantity }}
+    </span>
+
+    <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+  </li>
+</ul>
+
+<h3>Total Price: ₹{{ totalPrice }}</h3>

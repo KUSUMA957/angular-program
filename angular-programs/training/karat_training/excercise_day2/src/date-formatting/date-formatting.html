@@ -1,0 +1,14 @@
+<h2>Employee Joining Dates</h2>
+<ul>
+  <li *ngFor="let emp of employees">
+    <strong>{{ emp.name }}</strong><br>
+    Full Date:
+    {{ emp.joiningDate | date:'fullDate' }}<br>
+    Short Date:
+    {{ emp.joiningDate | date:'shortDate' }}<br>
+    Time:
+    {{ emp.joiningDate | date:'shortTime' }}<br>
+    Custom Format (dd/MM/yyyy):
+    {{ emp.joiningDate | date:'dd/MM/yyyy' }}
+  </li>
+</ul>

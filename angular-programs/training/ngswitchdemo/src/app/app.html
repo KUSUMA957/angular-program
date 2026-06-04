@@ -1,0 +1,176 @@
+<div class="app-container">
+  <header>
+    <h1>{{ title() }}</h1>
+    <p>Exploring Angular's NgSwitch directive with multiple examples</p>
+  </header>
+
+  <main>
+    <!-- Example 1: Tab Navigation using ngSwitch -->
+    <section class="demo-section">
+      <h2>Example 1: Tab Navigation</h2>
+      <div class="tab-buttons">
+        <button 
+          [class.active]="currentTab() === 'home'"
+          (click)="setTab('home')">
+          Home
+        </button>
+        <button 
+          [class.active]="currentTab() === 'about'"
+          (click)="setTab('about')">
+          About
+        </button>
+        <button 
+          [class.active]="currentTab() === 'contact'"
+          (click)="setTab('contact')">
+          Contact
+        </button>
+        <button 
+          [class.active]="currentTab() === 'services'"
+          (click)="setTab('services')">
+          Services
+        </button>
+      </div>
+      
+      <div class="tab-content" [ngSwitch]="currentTab()">
+        <div *ngSwitchCase="'home'">
+          <h3>Welcome Home!</h3>
+          <p>This is the home page content. Here you can find the latest updates and featured content.</p>
+          <ul>
+            <li>Latest news and updates</li>
+            <li>Featured articles</li>
+            <li>Quick navigation links</li>
+          </ul>
+        </div>
+        
+        <div *ngSwitchCase="'about'">
+          <h3>About Us</h3>
+          <p>Learn more about our company, mission, and values.</p>
+          <div class="about-content">
+            <p><strong>Mission:</strong> To provide excellent Angular examples and tutorials.</p>
+            <p><strong>Vision:</strong> Making Angular development accessible to everyone.</p>
+            <p><strong>Values:</strong> Quality, Innovation, Community</p>
+          </div>
+        </div>
+        
+        <div *ngSwitchCase="'contact'">
+          <h3>Contact Information</h3>
+          <p>Get in touch with us through the following channels:</p>
+          <div class="contact-info">
+            <p>📧 Email: contact@example.com</p>
+            <p>📞 Phone: +1 (555) 123-4567</p>
+            <p>📍 Address: 123 Angular Street, Framework City</p>
+          </div>
+        </div>
+        
+        <div *ngSwitchCase="'services'">
+          <h3>Our Services</h3>
+          <p>We offer a variety of services to help you succeed:</p>
+          <div class="services-grid">
+            <div class="service-card">
+              <h4>Web Development</h4>
+              <p>Full-stack web applications using Angular</p>
+            </div>
+            <div class="service-card">
+              <h4>Consulting</h4>
+              <p>Angular architecture and best practices</p>
+            </div>
+            <div class="service-card">
+              <h4>Training</h4>
+              <p>Angular workshops and courses</p>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngSwitchDefault>
+          <h3>Page Not Found</h3>
+          <p>The requested page could not be found. Please select a valid tab.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Example 2: User Role-based Content -->
+    <section class="demo-section">
+      <h2>Example 2: User Role-based Content</h2>
+      <div class="role-buttons">
+        <button 
+          [class.active]="userRole() === 'guest'"
+          (click)="setUserRole('guest')">
+          Guest
+        </button>
+        <button 
+          [class.active]="userRole() === 'user'"
+          (click)="setUserRole('user')">
+          User
+        </button>
+        <button 
+          [class.active]="userRole() === 'admin'"
+          (click)="setUserRole('admin')">
+          Admin
+        </button>
+        <button 
+          [class.active]="userRole() === 'moderator'"
+          (click)="setUserRole('moderator')">
+          Moderator
+        </button>
+      </div>
+      
+      <div class="role-content" [ngSwitch]="userRole()">
+        <div *ngSwitchCase="'guest'" class="role-card guest">
+          <h3>👤 Guest Access</h3>
+          <p>Welcome! You have limited access to our platform.</p>
+          <ul>
+            <li>View public content</li>
+            <li>Browse articles</li>
+            <li>Sign up for an account</li>
+          </ul>
+          <button class="cta-button">Sign Up Now</button>
+        </div>
+        
+        <div *ngSwitchCase="'user'" class="role-card user">
+          <h3>🔵 User Dashboard</h3>
+          <p>Welcome back! Here are your user privileges:</p>
+          <ul>
+            <li>Access to all content</li>
+            <li>Create and edit posts</li>
+            <li>Comment on articles</li>
+            <li>Customize profile</li>
+          </ul>
+          <button class="cta-button">View Profile</button>
+        </div>
+        
+        <div *ngSwitchCase="'admin'" class="role-card admin">
+          <h3>⚡ Admin Panel</h3>
+          <p>Full system access granted. Admin capabilities include:</p>
+          <ul>
+            <li>User management</li>
+            <li>Content moderation</li>
+            <li>System configuration</li>
+            <li>Analytics and reports</li>
+            <li>Database management</li>
+          </ul>
+          <button class="cta-button">Access Admin Panel</button>
+        </div>
+        
+        <div *ngSwitchCase="'moderator'" class="role-card moderator">
+          <h3>🛡️ Moderator Tools</h3>
+          <p>Content moderation privileges:</p>
+          <ul>
+            <li>Review reported content</li>
+            <li>Approve/reject posts</li>
+            <li>Manage user comments</li>
+            <li>Issue warnings</li>
+          </ul>
+          <button class="cta-button">Open Mod Tools</button>
+        </div>
+        
+        <div *ngSwitchDefault class="role-card unknown">
+          <h3>❓ Unknown Role</h3>
+          <p>Unable to determine user permissions. Please contact support.</p>
+          <button class="cta-button">Contact Support</button>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+</div>

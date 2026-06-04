@@ -1,0 +1,80 @@
+<div class="shopping-cart-container">
+  <h1>🛒 Shopping Cart</h1>
+
+  <!-- Add Product Form -->
+  <div class="add-product-form">
+    <h2>Add Product</h2>
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="newProductName"
+        placeholder="Product Name"
+        class="form-control"
+      />
+      <input
+        type="number"
+        [(ngModel)]="newProductPrice"
+        placeholder="Price"
+        min="0"
+        step="0.01"
+        class="form-control"
+      />
+      <input
+        type="number"
+        [(ngModel)]="newProductQuantity"
+        placeholder="Quantity"
+        min="1"
+        class="form-control"
+      />
+      <button (click)="addProduct()" class="btn btn-primary">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="cart-summary">
+    <h2>Cart Summary</h2>
+    <div class="summary-info">
+      <p>Total Items: <strong>{{ totalItemsCount$ | async }}</strong></p>
+      <p>Total Price: <strong>${{ (totalPrice$ | async)?.toFixed(2) }}</strong></p>
+    </div>
+    <button (click)="clearCart()" class="btn btn-danger" *ngIf="(cartProducts$ | async)?.length">
+      Clear Cart
+    </button>
+  </div>
+
+  <!-- Cart Items -->
+  <div class="cart-items">
+    <h2>Cart Items</h2>
+    
+    <div *ngIf="!(cartProducts$ | async)?.length" class="empty-cart">
+      <p>Your cart is empty. Add some products!</p>
+    </div>
+
+    <div class="product-list" *ngIf="(cartProducts$ | async)?.length">
+      <div *ngFor="let product of cartProducts$ | async" class="product-card">
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p class="price">${{ product.price.toFixed(2) }} each</p>
+        </div>
+        
+        <div class="quantity-controls">
+          <button (click)="decreaseQuantity(product)" class="btn btn-small">-</button>
+          <input
+            type="number"
+            [value]="product.quantity"
+            (change)="updateQuantity(product.id, +$any($event.target).value)"
+            min="0"
+            class="quantity-input"
+          />
+          <button (click)="increaseQuantity(product)" class="btn btn-small">+</button>
+        </div>
+        
+        <div class="product-total">
+          <p><strong>${{ (product.price * product.quantity).toFixed(2) }}</strong></p>
+        </div>
+        
+        <button (click)="removeProduct(product.id)" class="btn btn-remove">Remove</button>
+      </div>
+    </div>
+  </div>
+</div>

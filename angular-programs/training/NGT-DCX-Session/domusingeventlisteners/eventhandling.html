@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <button onclick ="displayMessage()"> Click Me</button>
+    <h2 id ="title">click me</h2>
+    <button id ="btn">
+     click me
+    </button>
+    <input type ="text" id = "inputField" placeholder ="enter text here">
+    <div id = "box" style =" width:120px;height:120px;background-color: lightblue;">Hover me</div>
+    <script>
+        // function displayMessage(){
+        //     alert("Button clicked");
+        //     document.write("Button clicked");
+        // }
+        document.getElementById("btn").addEventListener("click",function(){
+           document.getElementById("title").innerText="button clicked";
+           document.getElementById("title").style.color="red";
+           document.getElementById("box").style.backgroundColor="red";
+        });
+        //input even 
+        document.getElementById("inputField").addEventListener("input",function(e){
+           document.getElementById("title").innerText="you typed "+e.target.value;
+        });
+       //mouse over event 
+       document.getElementById("box").addEventListener("mouseout",function(){
+        document.getElementById("box").style.backgroundColor="lightgreen";
+       });
+       document.getElementById("box").addEventListener("mouseover",function(){
+       document.getElementById("box").style.backgroundColor="lightpink";
+       });
+       
+    </script>
+</body>
+</html>

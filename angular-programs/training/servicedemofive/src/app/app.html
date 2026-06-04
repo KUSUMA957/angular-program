@@ -1,0 +1,85 @@
+<!-- Service Demo Application -->
+<div class="app-container">
+  
+  <!-- Counter Service Demo -->
+  <section class="counter-demo">
+    <h1>Counter Service Demo</h1>
+    
+    <div class="counter-display">
+      <h2>Current Count: {{ count }}</h2>
+    </div>
+    
+    <div class="counter-controls">
+      <button (click)="increment()" class="btn btn-increment">Increment (+)</button>
+      <button (click)="decrement()" class="btn btn-decrement">Decrement (-)</button>
+    </div>
+    
+    <div class="explanation">
+      <p>This counter uses a shared <code>CounterService</code> that demonstrates:</p>
+      <ul>
+        <li><strong>@Injectable</strong> decorator for service creation</li>
+        <li><strong>Dependency Injection</strong> using the inject() function</li>
+        <li><strong>Shared State</strong> maintained across the application</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- User Service Demo -->
+  <section class="user-demo">
+    <h1>User Service with Interface Demo</h1>
+    
+    <div class="user-controls">
+      <button (click)="addNewUser()" class="btn btn-add">Add New User</button>
+    </div>
+
+    <!-- All Users -->
+    <div class="user-section">
+      <h2>All Users ({{ users.length }})</h2>
+      <div class="user-grid">
+        <div *ngFor="let user of users" class="user-card">
+          <div class="user-info">
+            <h3>{{ user.name }}</h3>
+            <p class="email">{{ user.email }}</p>
+            <span class="role role-{{ user.role.toLowerCase() }}">{{ user.role }}</span>
+          </div>
+          <button (click)="deleteUser(user.id)" class="btn-delete">×</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Users by Role -->
+    <div class="role-sections">
+      <div class="role-section" *ngIf="adminUsers.length > 0">
+        <h3>Admins ({{ adminUsers.length }})</h3>
+        <div class="user-list">
+          <span *ngFor="let user of adminUsers" class="user-tag admin">{{ user.name }}</span>
+        </div>
+      </div>
+
+      <div class="role-section" *ngIf="managerUsers.length > 0">
+        <h3>Managers ({{ managerUsers.length }})</h3>
+        <div class="user-list">
+          <span *ngFor="let user of managerUsers" class="user-tag manager">{{ user.name }}</span>
+        </div>
+      </div>
+
+      <div class="role-section" *ngIf="regularUsers.length > 0">
+        <h3>Users ({{ regularUsers.length }})</h3>
+        <div class="user-list">
+          <span *ngFor="let user of regularUsers" class="user-tag user">{{ user.name }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="explanation">
+      <p>This user management system demonstrates:</p>
+      <ul>
+        <li><strong>Interface</strong> for type safety with the User interface</li>
+        <li><strong>Service Design</strong> with comprehensive CRUD operations</li>
+        <li><strong>Type Safety</strong> ensuring all data conforms to the User interface</li>
+        <li><strong>Service Methods</strong> for filtering, adding, and deleting users</li>
+      </ul>
+    </div>
+  </section>
+
+</div>

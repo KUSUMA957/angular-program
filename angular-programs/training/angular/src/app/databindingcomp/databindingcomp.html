@@ -1,0 +1,28 @@
+
+<p>databindingcomp works!</p>
+<p>{{ courseName }}</p>
+<p>{{ rollno }}</p>
+<p>{{ isIndian }}</p>
+<p>{{ currentDate }}</p>
+ 
+<!-- One-way Property Binding -->
+<p><input type="text" [value]="courseName" /></p>
+ 
+<!-- Two-way Binding with ngModel -->
+<p><input type="text" [(ngModel)]="courseName" placeholder="Two-way binding" /></p>
+ 
+<!-- Event Binding - Button Click -->
+<p><input type="button" (click)="showAlert('Welcome to Alert')" value="Show Alert" /></p>
+ 
+<!-- Button to change courseName -->
+<p><input type="button" (click)="changeCourseName('React 19')" value="Change to React" /></p>
+ 
+<!-- Button to reset courseName -->
+<p><input type="button" (click)="changeCourseName('Angular 18')" value="Reset to Angular" /></p>
+ 
+<!-- Button to toggle between courses -->
+<p><input type="button" (click)="toggleCourse()" value="Toggle Course" /></p>
+ 
+<!-- Event Binding with input event -->
+<p><input type="text" (input)="updateCourseName($event)" [value]="courseName" placeholder="Type to update" /></p>
+ 

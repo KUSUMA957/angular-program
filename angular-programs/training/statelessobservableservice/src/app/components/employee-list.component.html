@@ -1,0 +1,101 @@
+<div class="employee-container">
+  <h2>🔹 Stateless Observable Service Demo</h2>
+  
+  <div class="concept-explanation">
+    <h3>✨ Key Concept</h3>
+    <p>
+      The <code>EmployeeService</code> is completely <strong>stateless</strong> - it doesn't store any employee data internally.
+      Instead, it returns <strong>Observables</strong> that emit data from HTTP calls (mocked here).
+      All state is managed in this component using signals and observables.
+    </p>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button (click)="loadEmployees()" [disabled]="loading()">
+      {{ loading() ? 'Loading...' : 'Load All Employees' }}
+    </button>
+    
+    <input 
+      type="text" 
+      [(ngModel)]="searchDepartment" 
+      placeholder="Search by department"
+      (input)="searchByDepartment()"
+    >
+    
+    <button (click)="showCreateForm = !showCreateForm">
+      {{ showCreateForm ? 'Cancel' : 'Add New Employee' }}
+    </button>
+  </div>
+
+  <!-- Create Employee Form -->
+  <div *ngIf="showCreateForm" class="create-form">
+    <h3>Create New Employee</h3>
+    <form (ngSubmit)="createEmployee()" #createForm="ngForm">
+      <input type="text" [(ngModel)]="newEmployee.name" name="name" placeholder="Name" required>
+      <input type="email" [(ngModel)]="newEmployee.email" name="email" placeholder="Email" required>
+      <input type="text" [(ngModel)]="newEmployee.department" name="department" placeholder="Department" required>
+      <input type="text" [(ngModel)]="newEmployee.position" name="position" placeholder="Position" required>
+      <input type="number" [(ngModel)]="newEmployee.salary" name="salary" placeholder="Salary" required>
+      <button type="submit" [disabled]="!createForm.valid || creating()">
+        {{ creating() ? 'Creating...' : 'Create Employee' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading()" class="loading">
+    Loading employees...
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error()" class="error">
+    ❌ Error: {{ error() }}
+  </div>
+
+  <!-- Employee List -->
+  <div *ngIf="employees().length > 0" class="employee-list">
+    <h3>Employees ({{ employees().length }})</h3>
+    
+    <div *ngFor="let employee of employees()" class="employee-card">
+      <div class="employee-info">
+        <h4>{{ employee.name }}</h4>
+        <p><strong>Email:</strong> {{ employee.email }}</p>
+        <p><strong>Department:</strong> {{ employee.department }}</p>
+        <p><strong>Position:</strong> {{ employee.position }}</p>
+        <p><strong>Salary:</strong> ${{ employee.salary }}</p>
+        <p><strong>Start Date:</strong> {{ employee.startDate }}</p>
+      </div>
+      <div class="employee-actions">
+        <button (click)="viewEmployee(employee.id)">View Details</button>
+        <button (click)="deleteEmployee(employee.id)" class="danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Employee Details -->
+  <div *ngIf="selectedEmployee()" class="selected-employee">
+    <h3>Selected Employee Details</h3>
+    <div class="employee-details">
+      <p><strong>ID:</strong> {{ selectedEmployee()?.id }}</p>
+      <p><strong>Name:</strong> {{ selectedEmployee()?.name }}</p>
+      <p><strong>Email:</strong> {{ selectedEmployee()?.email }}</p>
+      <p><strong>Department:</strong> {{ selectedEmployee()?.department }}</p>
+      <p><strong>Position:</strong> {{ selectedEmployee()?.position }}</p>
+      <p><strong>Salary:</strong> ${{ selectedEmployee()?.salary }}</p>
+      <p><strong>Start Date:</strong> {{ selectedEmployee()?.startDate }}</p>
+    </div>
+  </div>
+
+  <!-- Service State Explanation -->
+  <div class="state-explanation">
+    <h3>🔍 Service State Analysis</h3>
+    <ul>
+      <li>✅ <strong>Stateless Service:</strong> EmployeeService has no internal variables like <code>employees = []</code></li>
+      <li>✅ <strong>Observable-based:</strong> All methods return Observables</li>
+      <li>✅ <strong>Component State:</strong> Employee data is stored in component signals</li>
+      <li>✅ <strong>Reactive:</strong> UI updates automatically when data changes</li>
+      <li>✅ <strong>HTTP Ready:</strong> Service can easily switch to real HTTP calls</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>🚀 Angular @Output() Decorator Demo</h1>
+    <p>Demonstrates data flow from Child Component → Parent Component using Events</p>
+  </header>
+
+  <main class="demo-content">
+    <div class="info-section">
+      <h3>📘 How @Output() Works:</h3>
+      <ul>
+        <li><strong>Child Component:</strong> Uses <code>@Output()</code> decorator with <code>EventEmitter</code></li>
+        <li><strong>Event Emission:</strong> Child calls <code>emit()</code> to send data to parent</li>
+        <li><strong>Parent Listening:</strong> Parent uses <code>(eventName)="handler($event)"</code> to receive data</li>
+        <li><strong>Data Flow:</strong> Child → Parent (upward communication)</li>
+      </ul>
+    </div>
+
+    <app-parent></app-parent>
+
+    
+  </main>
+</div>

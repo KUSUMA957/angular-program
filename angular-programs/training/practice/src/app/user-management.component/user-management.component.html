@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="card">
+    <h2 class="card-title">User Management</h2>
+
+    <form #umf="ngForm" (ngSubmit)="add(umf)" novalidate>
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          [(ngModel)]="form.name"
+          required
+          minlength="2"
+          #name="ngModel"
+          [class.is-invalid]="name.invalid && (name.dirty || name.touched)"
+          placeholder="Enter full name"
+        />
+        <small class="error" *ngIf="name.invalid && (name.dirty || name.touched)">
+          <span *ngIf="name.errors?.['required']">Name is required.</span>
+          <span *ngIf="name.errors?.['minlength']">Minimum 2 characters.</span>
+        </small>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          email
+          #email="ngModel"
+          [class.is-invalid]="(email.invalid && (email.dirty || email.touched)) || emailExists"
+          placeholder="name@example.com"
+        />
+        <small class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <span *ngIf="email.errors?.['required']">Email is required.</span>
+          <span *ngIf="email.errors?.['email']">Enter a valid email.</span>
+        </small>
+        <small class="error" *ngIf="!email.invalid && emailExists">
+          This email is already added.
+        </small>
+      </div>
+
+      <!-- Role -->
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select
+          id="role"
+          name="role"
+          [(ngModel)]="form.role"
+          required
+          #role="ngModel"
+          [class.is-invalid]="role.invalid && (role.dirty || role.touched)"
+        >
+          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="umf.invalid || emailExists"
+        >
+          Add User
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="umf.resetForm({ name: '', email: '', role: 'User' })"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Users Table -->
+  <div class="card">
+    <h3 class="card-subtitle">Users</h3>
+
+    <div *ngIf="users.length === 0" class="empty">
+      No users yet. Add your first user above.
+    </div>
+
+    <div *ngIf="users.length > 0" class="table-wrap">
+      <table class="table" aria-label="User Table">
+        <thead>
+          <tr>
+            <th style="width:35%;">Name</th>
+            <th style="width:40%;">Email</th>
+            <th style="width:15%;">Role</th>
